@@ -1,5 +1,0 @@
-{
-    "componentChunkName": "component---src-templates-post-template-js",
-    "path": "/test-2",
-    "result": {"pageContext":{"html":"<h1>Hi!</h1>\n<p>마크다운으로 작성한 게시글 입니다.</p>","title":"테스트2","date":"2021. 12. 01. 22:57"}},
-    "staticQueryHashes": ["3649515864"]}
