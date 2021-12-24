@@ -1,6 +1,6 @@
 ---
 title: ps테스트
-date: "2021. 12. 01. 21:13"
+date: "December 01, 2021"
 path: "/pstest"
 ---
 

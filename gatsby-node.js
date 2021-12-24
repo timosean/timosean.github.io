@@ -31,7 +31,7 @@ exports.createPages = async ({ actions, graphql }) => {
   `)
 
   const { data: psData, errors: psErrors } = await graphql(`
-    query LatestPostQuery {
+    query probSolvingPostQuery {
       allMarkdownRemark(
         sort: { fields: frontmatter___date, order: DESC }
         filter: { fileAbsolutePath: { regex: "/(probsolving)/" } }
@@ -53,7 +53,7 @@ exports.createPages = async ({ actions, graphql }) => {
   `)
 
   const { data: devlogData, errors: devlogErrors } = await graphql(`
-    query LatestPostQuery {
+    query devlogPostQuery {
       allMarkdownRemark(
         sort: { fields: frontmatter___date, order: DESC }
         filter: { fileAbsolutePath: { regex: "/(devlog)/" } }
@@ -75,7 +75,7 @@ exports.createPages = async ({ actions, graphql }) => {
   `)
 
   const { data: stockData, errors: stockErrors } = await graphql(`
-    query LatestPostQuery {
+    query stockPostQuery {
       allMarkdownRemark(
         sort: { fields: frontmatter___date, order: DESC }
         filter: { fileAbsolutePath: { regex: "/(stock)/" } }
@@ -97,7 +97,7 @@ exports.createPages = async ({ actions, graphql }) => {
   `)
 
   const { data: uiuxData, errors: uiuxErrors } = await graphql(`
-    query LatestPostQuery {
+    query uiuxPostQuery {
       allMarkdownRemark(
         sort: { fields: frontmatter___date, order: DESC }
         filter: { fileAbsolutePath: { regex: "/(uiux)/" } }
