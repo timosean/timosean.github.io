@@ -54,6 +54,22 @@ const PostLink = styled(Link)`
   }
 `
 
+const ReadMoreBtn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 35px;
+  background: #1eb49f;
+`
+
+const ReadMoreLink = styled(Link)`
+  color: white;
+  font-size: 15px;
+  font-family: "Roboto";
+  text-decoration: none;
+`
+
 const StockStudyPage = () => {
   const data = useStaticQuery(
     graphql`
@@ -99,21 +115,30 @@ const StockStudyPage = () => {
               {data.allMarkdownRemark.edges.map(({ node }) => (
                 <PostItem>
                   <li key={node.id}>
-                    <h2 style={{ marginBottom: 0, fontFamily: "NOTO SANS KR" }}>
+                    <h2
+                      style={{ marginBottom: 0, fontFamily: "Apple SD Gothic" }}
+                    >
                       <PostLink to={node.frontmatter.path}>
                         {node.frontmatter.title}
                       </PostLink>
                     </h2>
                     <p
                       style={{
-                        fontFamily: "NOTO SANS KR",
+                        fontFamily: "Roboto",
                         fontSize: "15px",
                         color: "#313233",
                       }}
                     >
                       {node.frontmatter.date}
                     </p>
-                    <p style={{ fontFamily: "NOTO SANS KR" }}>{node.excerpt}</p>
+                    <p style={{ fontFamily: "Apple SD Gothic" }}>
+                      {node.excerpt}
+                    </p>
+                    <ReadMoreBtn>
+                      <ReadMoreLink to={node.frontmatter.path}>
+                        Read More
+                      </ReadMoreLink>
+                    </ReadMoreBtn>
                   </li>
                 </PostItem>
               ))}

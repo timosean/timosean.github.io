@@ -53,12 +53,28 @@ const PostLink = styled(Link)`
   }
 `
 
+const ReadMoreBtn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 35px;
+  background: #1eb49f;
+`
+
+const ReadMoreLink = styled(Link)`
+  color: white;
+  font-size: 15px;
+  font-family: "Roboto";
+  text-decoration: none;
+`
+
 const PostIndexPage = () => {
   const data = useStaticQuery(
     graphql`
       query LatestPostQuery {
         allMarkdownRemark(
-          sort: { fields: id, order: DESC }
+          sort: { fields: frontmatter___date, order: DESC }
           filter: { fileAbsolutePath: { regex: "/(dailypost)/" } }
         ) {
           edges {
@@ -97,9 +113,12 @@ const PostIndexPage = () => {
             <ul style={{ listStyle: "none", margin: 0, width: "100%" }}>
               {data.allMarkdownRemark.edges.map(({ node }) => (
                 <PostItem>
-                  <li key={node.id}>
+                  <li key={node.frontmatter.title}>
                     <h2
-                      style={{ marginBottom: 0, fontFamily: "Apple SD Gothic" }}
+                      style={{
+                        marginBottom: 0,
+                        fontFamily: "Apple SD Gothic",
+                      }}
                     >
                       <PostLink to={node.frontmatter.path}>
                         {node.frontmatter.title}
@@ -107,14 +126,21 @@ const PostIndexPage = () => {
                     </h2>
                     <p
                       style={{
-                        fontFamily: "NOTO SANS KR",
+                        fontFamily: "Roboto",
                         fontSize: "15px",
                         color: "#313233",
                       }}
                     >
                       {node.frontmatter.date}
                     </p>
-                    <p style={{ fontFamily: "NOTO SANS KR" }}>{node.excerpt}</p>
+                    <p style={{ fontFamily: "Apple SD Gothic" }}>
+                      {node.excerpt}
+                    </p>
+                    <ReadMoreBtn>
+                      <ReadMoreLink to={node.frontmatter.path}>
+                        Read More
+                      </ReadMoreLink>
+                    </ReadMoreBtn>
                   </li>
                 </PostItem>
               ))}

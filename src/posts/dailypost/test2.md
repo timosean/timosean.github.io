@@ -1,7 +1,7 @@
 ---
 title: 테스트2
-date: "2021. 12. 01. 22:57"
-path: "/test-2"
+date: "December 03, 2021"
+path: "/test2"
 ---
 
 # Hi!

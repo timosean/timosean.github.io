@@ -19,6 +19,10 @@
   src: url(./fonts/AppleSDGothicNeoB.woff);
 }
 @font-face {
+  font-family: "Apple SD Gothic Semibold";
+  src: url(./fonts/AppleSDGothicNeoSB.woff);
+}
+@font-face {
   font-family: "Apple SD Gothic Extra Bold";
   src: url(./fonts/AppleSDGothicNeoEB.woff);
 }

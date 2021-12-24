@@ -2,7 +2,7 @@ import React from "react"
 import Layout from "../components/layout"
 import Comment from "../components/comment"
 import styled from "styled-components"
-import backimg from "../images/daily.jpg"
+import backimg from "../images/graph.jpg"
 
 //Styled Components
 const EntirePage = styled.div`
@@ -10,7 +10,8 @@ const EntirePage = styled.div`
   min-height: 100vh;
   height: fit-content;
   background-image: url(${backimg});
-  background-position: 0% 50%;
+  background-position: 50% 50%;
+  background-size: cover;
   display: flex;
   justify-content: center;
 `
@@ -38,7 +39,7 @@ const MainTextArea = styled.div`
   padding-left: 1.45rem;
 `
 
-const PostTemplate = React.memo(props => {
+const stockTemplate = React.memo(props => {
   const { title, date, html } = props.pageContext
 
   return (
@@ -80,6 +81,6 @@ const PostTemplate = React.memo(props => {
   )
 })
 
-PostTemplate.displayName = "PostTemplate"
+stockTemplate.displayName = "stockTemplate"
 
-export default PostTemplate
+export default stockTemplate
