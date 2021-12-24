@@ -1,1 +1,1 @@
-{"data":{"allMarkdownRemark":{"edges":[{"node":{"excerpt":"Hi! 마크다운으로 작성한 게시글 입니다.","id":"aed2ae0c-2bbf-59ac-a2ca-5a4e2a23bdd1","frontmatter":{"title":"dev테스트","path":"/devtest","date":"2021. 12. 01. 21:13"}}}]}}}
+{"data":{"allMarkdownRemark":{"edges":[{"node":{"excerpt":"Hi! 마크다운으로 작성한 게시글 입니다.","id":"aed2ae0c-2bbf-59ac-a2ca-5a4e2a23bdd1","frontmatter":{"title":"dev테스트","path":"/devtest","date":"December 01, 2021"}}}]}}}
