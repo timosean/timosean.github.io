@@ -3,6 +3,7 @@ import Layout from "../components/layout"
 import Comment from "../components/comment"
 import styled from "styled-components"
 import backimg from "../images/daily.jpg"
+import { Link } from "gatsby"
 
 //Styled Components
 const EntirePage = styled.div`
@@ -23,7 +24,7 @@ const ContentArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 `
@@ -34,12 +35,40 @@ const InfoArea = styled.div`
 `
 const MainTextArea = styled.div`
   width: 100%;
+  min-height: 68%;
   display: flex;
   padding-left: 1.45rem;
 `
+const LinkContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+const InvisibleItem = styled.div`
+  width: 200px;
+  padding: 15px;
+  visibility: hidden;
+`
+const LinkItem = styled.div`
+  width: 200px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+`
+const ArticleLink = styled(Link)`
+  font-family: "Apple SD Gothic Bold";
+  font-size: 18px;
+  color: black;
+  text-decoration: none;
+`
 
 const PostTemplate = React.memo(props => {
-  const { title, date, html } = props.pageContext
+  const { title, date, html, next, previous } = props.pageContext
 
   return (
     <Layout>
@@ -73,6 +102,52 @@ const PostTemplate = React.memo(props => {
           <MainTextArea>
             <div dangerouslySetInnerHTML={{ __html: html }} />
           </MainTextArea>
+          <LinkContainer>
+            {/*이전글과 다음글 링크가 동시에 존재하는 게시물일 때, '이전 글'링크의 marginRight 설정*/}
+            {previous && next && (
+              <LinkItem style={{ marginRight: "350px" }}>
+                <span
+                  style={{
+                    color: "gray",
+                    fontSize: "14px",
+                  }}
+                >
+                  이전 글
+                </span>
+                <ArticleLink to={next.frontmatter.path}>
+                  {next.frontmatter.title}
+                </ArticleLink>
+              </LinkItem>
+            )}
+
+            {/*'이전 글' 링크가 없다면, 있는 것 처럼 invisible item을 줘서 '다음 글'의 위치 유지*/}
+            {!next && <InvisibleItem style={{ marginRight: "350px" }} />}
+
+            {previous && (
+              <LinkItem
+                style={{
+                  paddingLeft: "0",
+                  paddingRight: "16px",
+                }}
+              >
+                <span
+                  style={{
+                    color: "gray",
+                    fontSize: "14px",
+                    textAlign: "right",
+                  }}
+                >
+                  다음 글
+                </span>
+                <ArticleLink
+                  to={previous.frontmatter.path}
+                  style={{ textAlign: "right" }}
+                >
+                  {previous.frontmatter.title}
+                </ArticleLink>
+              </LinkItem>
+            )}
+          </LinkContainer>
         </ContentArea>
       </EntirePage>
       <Comment />

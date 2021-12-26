@@ -25,6 +25,18 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             html
           }
+          next {
+            frontmatter {
+              path
+              title
+            }
+          }
+          previous {
+            frontmatter {
+              path
+              title
+            }
+          }
         }
       }
     }
@@ -138,13 +150,15 @@ exports.createPages = async ({ actions, graphql }) => {
     throw uiuxErrors
   }
 
-  postData.allMarkdownRemark.edges.forEach(({ node }) => {
+  postData.allMarkdownRemark.edges.forEach(({ node, next, previous }) => {
     createPage({
       path: `${node.frontmatter.path}`,
       context: {
         html: node.html,
         title: node.frontmatter.title,
         date: node.frontmatter.date,
+        next,
+        previous,
       },
       component: blogPostTemplate,
     })
