@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-post-template-js",
     "path": "/test3",
-    "result": {"pageContext":{"html":"<h1>Hi!</h1>\n<p>마크다운으로 작성한 게시글 입니다.</p>","title":"테스트3","date":"December 06, 2021"}},
+    "result": {"pageContext":{"html":"<h1>Hi!</h1>\n<p>마크다운으로 작성한 게시글 입니다.</p>","title":"테스트3","date":"December 06, 2021","next":{"frontmatter":{"path":"/test2","title":"테스트2"}},"previous":{"frontmatter":{"path":"/test4","title":"테스트4"}}}},
     "staticQueryHashes": ["3649515864"]}
