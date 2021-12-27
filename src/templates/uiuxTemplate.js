@@ -11,6 +11,7 @@ const EntirePage = styled.div`
   height: fit-content;
   background-image: url(${backimg});
   background-position: 50% 2500px;
+  background-attachment: fixed, scroll;
   display: flex;
   justify-content: center;
 `
