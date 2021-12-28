@@ -23,7 +23,13 @@ const Comment = () => {
     commentRef.current.appendChild(utterances)
   }, [])
 
-  return <div className="comments" ref={commentRef} />
+  return (
+    <div
+      className="comments"
+      style={{ width: "100vw", position: "static", marginBottom: "20px" }}
+      ref={commentRef}
+    />
+  )
 }
 
 export default Comment

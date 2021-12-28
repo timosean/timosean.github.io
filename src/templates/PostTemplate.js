@@ -6,14 +6,18 @@ import backimg from "../images/daily.jpg"
 import { Link } from "gatsby"
 
 //Styled Components
+{
+  /*footer를 제외한 전체 페이지*/
+}
 const EntirePage = styled.div`
   padding-top: 100px;
-  min-height: 100vh;
   background-image: url(${backimg});
   background-position: 0% 50%;
   background-attachment: fixed, scroll;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `
 
 const ContentArea = styled.div`
@@ -37,15 +41,13 @@ const InfoArea = styled.div`
 `
 const MainTextArea = styled.div`
   width: 100%;
-  height: 70%;
   margin-bottom: 20px;
   padding-left: 1.45rem;
   padding-right: 1.45rem;
   display: flex;
 `
 const LinkContainer = styled.div`
-  position: absolute;
-  bottom: 0;
+  position: static;
   width: 100%;
   display: flex;
   align-items: center;
@@ -77,7 +79,6 @@ const ArticleLink = styled(Link)`
     text-decoration: underline;
   }
 `
-
 const articleHeaderStyle = {
   fontFamily: "Apple SD Gothic Semibold",
   fontSize: "36px",
