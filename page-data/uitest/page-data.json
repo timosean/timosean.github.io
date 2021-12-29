@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-uiux-template-js",
     "path": "/uitest",
-    "result": {"pageContext":{"html":"<h1>Hi!</h1>\n<p>마크다운으로 작성한 게시글 입니다.</p>","title":"UI테스트","date":"December 01, 2021"}},
+    "result": {"pageContext":{"html":"<h1>Hi!</h1>\n<p>마크다운으로 작성한 게시글 입니다.</p>","title":"UI테스트","date":"December 01, 2021","next":null,"previous":null}},
     "staticQueryHashes": ["3649515864"]}

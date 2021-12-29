@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---src-templates-stock-template-js",
     "path": "/stocktest2",
-    "result": {"pageContext":{"html":"<h1>Hi!</h1>\n<p>마크다운으로 작성한 게시글 입니다.</p>","title":"stock테스트2","date":"December 04, 2021"}},
+    "result": {"pageContext":{"html":"<h1>Hi!</h1>\n<p>마크다운으로 작성한 게시글 입니다.</p>","title":"stock테스트2","date":"December 04, 2021","next":{"frontmatter":{"path":"/stocktest","title":"stock테스트"}},"previous":null}},
     "staticQueryHashes": ["3649515864"]}
