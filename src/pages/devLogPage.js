@@ -76,7 +76,7 @@ const DevLogPage = () => {
     graphql`
       query DevLogQuery {
         allMarkdownRemark(
-          sort: { fields: id, order: DESC }
+          sort: { fields: frontmatter___date, order: DESC }
           filter: { fileAbsolutePath: { regex: "/(devlog)/" } }
         ) {
           edges {

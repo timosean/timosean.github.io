@@ -75,7 +75,7 @@ const UiUxPage = () => {
     graphql`
       query UiUxQuery {
         allMarkdownRemark(
-          sort: { fields: id, order: DESC }
+          sort: { fields: frontmatter___date, order: DESC }
           filter: { fileAbsolutePath: { regex: "/(uiux)/" } }
         ) {
           edges {

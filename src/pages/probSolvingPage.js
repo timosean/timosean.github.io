@@ -75,7 +75,7 @@ const ProbSolvingPage = () => {
     graphql`
       query ProbSolvingQuery {
         allMarkdownRemark(
-          sort: { fields: id, order: DESC }
+          sort: { fields: frontmatter___date, order: DESC }
           filter: { fileAbsolutePath: { regex: "/(probsolving)/" } }
         ) {
           edges {

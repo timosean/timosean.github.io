@@ -11,6 +11,7 @@ import { Link } from "gatsby"
 }
 const EntirePage = styled.div`
   padding-top: 100px;
+  min-height: 100vh;
   background-image: url(${backimg});
   background-position: 0% 50%;
   background-attachment: fixed, scroll;

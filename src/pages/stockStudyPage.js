@@ -76,7 +76,7 @@ const StockStudyPage = () => {
     graphql`
       query StockStudyQuery {
         allMarkdownRemark(
-          sort: { fields: id, order: DESC }
+          sort: { fields: frontmatter___date, order: DESC }
           filter: { fileAbsolutePath: { regex: "/(stock)/" } }
         ) {
           edges {

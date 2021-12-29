@@ -59,6 +59,18 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             html
           }
+          next {
+            frontmatter {
+              path
+              title
+            }
+          }
+          previous {
+            frontmatter {
+              path
+              title
+            }
+          }
         }
       }
     }
@@ -80,6 +92,18 @@ exports.createPages = async ({ actions, graphql }) => {
               date
             }
             html
+          }
+          next {
+            frontmatter {
+              path
+              title
+            }
+          }
+          previous {
+            frontmatter {
+              path
+              title
+            }
           }
         }
       }
@@ -103,6 +127,18 @@ exports.createPages = async ({ actions, graphql }) => {
             }
             html
           }
+          next {
+            frontmatter {
+              path
+              title
+            }
+          }
+          previous {
+            frontmatter {
+              path
+              title
+            }
+          }
         }
       }
     }
@@ -124,6 +160,18 @@ exports.createPages = async ({ actions, graphql }) => {
               date
             }
             html
+          }
+          next {
+            frontmatter {
+              path
+              title
+            }
+          }
+          previous {
+            frontmatter {
+              path
+              title
+            }
           }
         }
       }
@@ -164,49 +212,57 @@ exports.createPages = async ({ actions, graphql }) => {
     })
   })
 
-  psData.allMarkdownRemark.edges.forEach(({ node }) => {
+  psData.allMarkdownRemark.edges.forEach(({ node, next, previous }) => {
     createPage({
       path: `${node.frontmatter.path}`,
       context: {
         html: node.html,
         title: node.frontmatter.title,
         date: node.frontmatter.date,
+        next,
+        previous,
       },
       component: psPostTemplate,
     })
   })
 
-  devlogData.allMarkdownRemark.edges.forEach(({ node }) => {
+  devlogData.allMarkdownRemark.edges.forEach(({ node, next, previous }) => {
     createPage({
       path: `${node.frontmatter.path}`,
       context: {
         html: node.html,
         title: node.frontmatter.title,
         date: node.frontmatter.date,
+        next,
+        previous,
       },
       component: dlPostTemplate,
     })
   })
 
-  stockData.allMarkdownRemark.edges.forEach(({ node }) => {
+  stockData.allMarkdownRemark.edges.forEach(({ node, next, previous }) => {
     createPage({
       path: `${node.frontmatter.path}`,
       context: {
         html: node.html,
         title: node.frontmatter.title,
         date: node.frontmatter.date,
+        next,
+        previous,
       },
       component: stockPostTemplate,
     })
   })
 
-  uiuxData.allMarkdownRemark.edges.forEach(({ node }) => {
+  uiuxData.allMarkdownRemark.edges.forEach(({ node, next, previous }) => {
     createPage({
       path: `${node.frontmatter.path}`,
       context: {
         html: node.html,
         title: node.frontmatter.title,
         date: node.frontmatter.date,
+        next,
+        previous,
       },
       component: uiuxTemplate,
     })
