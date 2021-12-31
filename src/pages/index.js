@@ -35,6 +35,24 @@ const WelcomeDiv = styled.div`
   justify-content: center;
 `
 
+//메인페이지의 설명글
+const ExplainPar = styled.p`
+  font-size: 50px;
+  font-weight: bold;
+  color: black;
+  height: 80px;
+  line-height: 80px;
+  margin-bottom: 0.5rem;
+  font-family: "Apple SD Gothic";
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+
+  @media only screen and (max-width: 700px) {
+    font-size: 25px;
+    height: 50px;
+    line-height: 50px;
+  }
+`
+
 //커서를 깜빡이게 만드는 애니메이션 효과
 const blinkingCursor = keyframes`
   0% {
@@ -75,6 +93,12 @@ const StyledRotatingText = styled(ReactRotatingText)`
       opacity: 0;
     }
   }
+
+  @media only screen and (max-width: 700px) {
+    font-size: 45px;
+    height: 50px;
+    line-height: 50px;
+  }
 `
 
 //'포스트 보러가기' 버튼
@@ -114,18 +138,6 @@ const PostLink = styled(Link)`
   }
 `
 
-//React Rotating Text를 제외한 메인배너의 소개글 스타일
-const explainText = {
-  fontSize: "50px",
-  fontWeight: "bold",
-  color: "black",
-  height: "80px",
-  lineHeight: "80px",
-  marginBottom: "0.5rem",
-  fontFamily: "Apple SD Gothic",
-  textShadow: "1px 1px 0px rgba(0, 0, 0, 0.2)",
-}
-
 //'About Me' 섹션의 전체 컨테이너 컴포넌트
 const AboutPage = styled.div`
   width: 100%;
@@ -137,6 +149,16 @@ const AboutPage = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media only screen and (max-width: 700px) {
+    min-height: 1900px;
+  }
+`
+
+const AboutHeader = styled.h1`
+  text-align: center;
+  font-family: "Roboto";
+  margin-bottom: 50px;
 `
 
 //About Me 섹션의 소개아이콘 '한 줄'을 담당하고 있는 컨테이너 컴포넌트
@@ -146,7 +168,14 @@ const IntroDiv = styled.div`
   width: 1200px;
   height: 300px;
   margin: 0 auto;
-  display: flex;
+
+  @media only screen and (max-width: 700px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 800px;
+  }
 `
 
 //About Me 섹션의 소개아이콘 하나를 담고 있는 컴포넌트
@@ -181,7 +210,7 @@ const IndexPage = () => (
     <Seo title="Home" />
     <HomeDiv>
       <WelcomeDiv>
-        <p style={explainText}>
+        <ExplainPar>
           프론트엔드 개발자{" "}
           <span
             style={{
@@ -193,12 +222,12 @@ const IndexPage = () => (
             이승우
           </span>
           의
-        </p>
+        </ExplainPar>
         <StyledRotatingText
-          items={["열정을 담은", "앞날이 기대되는", "발전하는 모습을 담은"]}
+          items={["열정을 담은", "앞날이 기대되는", "더 읽어보고 싶은"]}
           color="white"
         ></StyledRotatingText>
-        <p style={explainText}>이야기들을 확인해보세요.</p>
+        <ExplainPar>이야기들을 확인해보세요.</ExplainPar>
         <PostButton>
           <PostLink to="/postIndexPage/" className="postlink">
             포스트 보러가기
@@ -209,15 +238,7 @@ const IndexPage = () => (
 
     {/*About Me Page*/}
     <AboutPage id="aboutpage">
-      <h1
-        style={{
-          textAlign: "center",
-          fontFamily: "Roboto",
-          marginBottom: "50px",
-        }}
-      >
-        About Me
-      </h1>
+      <AboutHeader>About Me</AboutHeader>
 
       {/*1st Icon Row*/}
       <IntroDiv>
