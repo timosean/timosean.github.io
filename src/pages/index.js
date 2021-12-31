@@ -13,6 +13,7 @@ import { RiDoubleQuotesL } from "react-icons/ri"
 import { AiFillFire } from "react-icons/ai"
 import { FaDirections } from "react-icons/fa"
 
+//index.js의 메인 배너를 감싸는 컨테이너 컴포넌트
 const HomeDiv = styled.div`
   display: flex;
   align-items: center;
@@ -23,6 +24,7 @@ const HomeDiv = styled.div`
   background-position: 50% 50%;
 `
 
+//메인 배너의 문구를 담당하는 컨테이너 컴포넌트
 const WelcomeDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,6 +35,7 @@ const WelcomeDiv = styled.div`
   justify-content: center;
 `
 
+//커서를 깜빡이게 만드는 애니메이션 효과
 const blinkingCursor = keyframes`
   0% {
     opacity: 0;
@@ -45,6 +48,7 @@ const blinkingCursor = keyframes`
   }
 `
 
+//스타일링한 React Rotating Text
 const StyledRotatingText = styled(ReactRotatingText)`
   display: block;
   font-size: 80px;
@@ -73,6 +77,7 @@ const StyledRotatingText = styled(ReactRotatingText)`
   }
 `
 
+//'포스트 보러가기' 버튼
 const PostButton = styled.div`
   display: flex;
   align-items: center;
@@ -98,6 +103,7 @@ const PostButton = styled.div`
   }
 `
 
+//스타일링한 '포스트 보러가기' 링크
 const PostLink = styled(Link)`
   color: white;
   text-decoration: none;
@@ -108,6 +114,7 @@ const PostLink = styled(Link)`
   }
 `
 
+//React Rotating Text를 제외한 메인배너의 소개글 스타일
 const explainText = {
   fontSize: "50px",
   fontWeight: "bold",
@@ -119,6 +126,7 @@ const explainText = {
   textShadow: "1px 1px 0px rgba(0, 0, 0, 0.2)",
 }
 
+//'About Me' 섹션의 전체 컨테이너 컴포넌트
 const AboutPage = styled.div`
   width: 100%;
   min-height: 1000px;
@@ -131,6 +139,7 @@ const AboutPage = styled.div`
   justify-content: center;
 `
 
+//About Me 섹션의 소개아이콘 '한 줄'을 담당하고 있는 컨테이너 컴포넌트
 const IntroDiv = styled.div`
   display: flex;
   align-items: center;
@@ -140,6 +149,7 @@ const IntroDiv = styled.div`
   display: flex;
 `
 
+//About Me 섹션의 소개아이콘 하나를 담고 있는 컴포넌트
 const IntroItem = styled.div`
   width: 350px;
   margin-left: 25px;
@@ -152,6 +162,7 @@ const IntroItem = styled.div`
   margin-bottom: 50px;
 `
 
+//About Me 섹션에 쓰일 아이콘에 대한 스타일
 const iconStyle = {
   display: "flex",
   alignItems: "center",

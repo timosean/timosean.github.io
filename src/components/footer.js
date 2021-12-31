@@ -66,6 +66,11 @@ const linkStyle = {
   textDecoration: "none",
 }
 
+const topFunction = () => {
+  document.body.scrollTop = 0
+  document.documentElement.scrollTop = 0
+}
+
 const Footer = () => {
   return (
     <>
@@ -107,9 +112,12 @@ const Footer = () => {
                   fontSize: "15px",
                 }}
               >
-                <Link to="/" style={linkStyle}>
+                <div
+                  style={{ linkStyle, cursor: "pointer" }}
+                  onClick={topFunction}
+                >
                   -top
-                </Link>
+                </div>
               </div>
             </div>
           </RowItem>

@@ -2,9 +2,9 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import { FiChevronDown } from "react-icons/fi"
+import { FiChevronDown, FiMenu } from "react-icons/fi"
 
-//styled-components
+//헤더 전체를 감싸는 헤더컨테이너 컴포넌트
 const StyledHeader = styled.div`
   display: flex;
   align-items: center;
@@ -24,6 +24,7 @@ const StyledHeader = styled.div`
   }
 `
 
+//사이트 로고를 담고 있는 컨테이너
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
@@ -33,6 +34,7 @@ const TitleContainer = styled.div`
   margin-right: 19vw;
 `
 
+//사이트 로고에 대한 전반적인 스타일
 const StyledTitle = styled.h1`
   margin: 0;
   font-size: 35px;
@@ -41,11 +43,38 @@ const StyledTitle = styled.h1`
   min-width: 9vw;
 `
 
+//사이트 로고의 링크에 대한 스타일
 const TitleLink = styled(Link)`
   text-decoration: none;
   color: #094dc7;
 `
 
+//모바일 스크린에 맞춰 나타나는 메뉴아이콘
+const MenuIcon = styled.div`
+  @media only screen and (max-width: 700px) {
+    position: absolute;
+    width: 50px;
+    height: 80px;
+    right: 0px;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover .mobile-dropdown {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      height: 200px;
+      transition: height 0.2s;
+    }
+  }
+
+  @media only screen and (min-width: 701px) {
+    display: none;
+  }
+`
+
+//네비게이션 링크들을 감싸는 컨테이너 컴포넌트
 const NavContainer = styled.div`
   width: 50vw;
   height: 80px;
@@ -56,6 +85,7 @@ const NavContainer = styled.div`
   align-items: center;
 `
 
+//네비게이션 아이템 하나의 스타일
 const NavItem = styled.div`
   min-width: 130px;
   box-sizing: border-box;
@@ -81,16 +111,41 @@ const NavItem = styled.div`
   &:hover .dropdown-content {
     display: flex;
   }
+
+  @media only screen and (max-width: 700px) {
+    display: none;
+  }
 `
 
+//네비게이션 링크 스타일
 const NavLink = styled(Link)`
   text-decoration: none;
   color: black;
   font-family: "Roboto";
   font-weight: bold;
   font-size: 18px;
+
+  @media only screen and (max-width: 700px) {
+    margin-bottom: 5px;
+  }
 `
 
+//Study 메뉴를 위한 span
+const StudySpan = styled.span`
+  margin-right: 5px;
+  font-family: "Roboto";
+  font-size: 18px;
+  font-weight: bold;
+
+  &:hover .m-study-dropdown {
+    height: 200px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: height 0.2s;
+  }
+`
+
+//Study 메뉴를 hover했을 때 나타나는 드롭다운 컨테이너
 const StudyContainer = styled.div`
   display: none;
   top: 80px;
@@ -137,6 +192,24 @@ const MenuLink = styled(NavLink)`
   }
 `
 
+const MobileMenuDropdown = styled.div`
+  width: 100vw;
+  height: 0px;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 20px;
+  background: white;
+  z-index: 100;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.11);
+  text-align: right;
+  transition: 0.2s;
+  overflow: hidden;
+`
+
 //Inline text styles
 const studyStyle = {
   fontFamily: "Roboto",
@@ -177,16 +250,7 @@ const Header = ({ siteTitle }) => {
             <NavLink to="/postIndexPage/">Posts</NavLink>
           </NavItem>
           <NavItem className="dropdown">
-            <span
-              style={{
-                marginRight: "5px",
-                fontFamily: "Roboto",
-                fontSize: "18px",
-                fontWeight: "bold",
-              }}
-            >
-              Study
-            </span>
+            <StudySpan>Study</StudySpan>
             <FiChevronDown
               className="icon"
               style={{ transition: "0.4s", color: "#094dc7" }}
@@ -220,6 +284,25 @@ const Header = ({ siteTitle }) => {
               </ContentListBox>
             </StudyContainer>
           </NavItem>
+          <MenuIcon>
+            <FiMenu />
+            <MobileMenuDropdown className="mobile-dropdown">
+              <NavLink to="/#aboutpage">About Me</NavLink>
+              <NavLink to="/postIndexPage/">Posts</NavLink>
+              <StudySpan style={{ margin: "0" }}>
+                Study
+                <MobileMenuDropdown
+                  className="m-study-dropdown"
+                  style={{ zIndex: "101" }}
+                >
+                  <MenuLink to="/probSolvingPage">Problem Solving</MenuLink>
+                  <MenuLink to="/uiuxPage">UI / UX</MenuLink>
+                  <MenuLink to="/devLogPage">DevLog</MenuLink>
+                  <MenuLink to="/stockStudyPage">Stock</MenuLink>
+                </MobileMenuDropdown>
+              </StudySpan>
+            </MobileMenuDropdown>
+          </MenuIcon>
         </NavContainer>
       </StyledHeader>
     </>

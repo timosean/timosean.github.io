@@ -8,39 +8,41 @@ exports.createPages = async ({ actions, graphql }) => {
   const stockPostTemplate = path.resolve(`src/templates/stockTemplate.js`)
   const uiuxTemplate = path.resolve(`src/templates/uiuxTemplate.js`)
 
-  const { data: postData, errors: postErrors } = await graphql(`
-    query LatestPostQuery {
-      allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        filter: { fileAbsolutePath: { regex: "/(dailypost)/" } }
-      ) {
-        edges {
-          node {
-            excerpt(pruneLength: 200, truncate: true)
-            id
-            frontmatter {
-              title
-              path
-              date
+  const { data: postData, errors: postErrors } = await graphql(
+    `
+      query LatestPostQuery {
+        allMarkdownRemark(
+          sort: { fields: frontmatter___date, order: DESC }
+          filter: { fileAbsolutePath: { regex: "/(dailypost)/" } }
+        ) {
+          edges {
+            node {
+              excerpt(pruneLength: 200, truncate: true)
+              id
+              frontmatter {
+                title
+                path
+                date
+              }
+              html
             }
-            html
-          }
-          next {
-            frontmatter {
-              path
-              title
+            next {
+              frontmatter {
+                path
+                title
+              }
             }
-          }
-          previous {
-            frontmatter {
-              path
-              title
+            previous {
+              frontmatter {
+                path
+                title
+              }
             }
           }
         }
       }
-    }
-  `)
+    `
+  )
 
   const { data: psData, errors: psErrors } = await graphql(`
     query probSolvingPostQuery {
