@@ -28,16 +28,29 @@ const ContentArea = styled.div`
   background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+
+  @media only screen and (max-width: 700px) {
+    width: 90vw;
+    min-width: 90vw;
+  }
 `
 
 const PostContainer = styled.div`
   display: flex;
   justify-content: center;
+
+  @media only screen and (max-width: 700px) {
+    width: 90%;
+  }
 `
 
 const PostItem = styled.div`
   width: 700px;
   margin-bottom: 50px;
+
+  @media only screen and (max-width: 700px) {
+    width: 100%;
+  }
 `
 
 const PostLink = styled(Link)`

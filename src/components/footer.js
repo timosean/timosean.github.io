@@ -8,6 +8,7 @@ import { Link } from "gatsby"
 
 const FooterArea = styled.div`
   background: #3a5344;
+  width: 100vw;
   height: 230px;
   color: white;
   display: flex;
@@ -15,6 +16,10 @@ const FooterArea = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+
+  @media only screen and (max-width: 700px) {
+    height: 600px;
+  }
 `
 
 const ContentArea = styled.div`
@@ -22,39 +27,61 @@ const ContentArea = styled.div`
   justify-content: center;
   min-width: 1300px;
   width: 80vw;
+
+  @media only screen and (max-width: 700px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 100vw;
+  }
 `
 
 const RowItem = styled.div`
+  width: 200px;
   display: flex;
   flex-direction: column;
-  width: 200px;
   justify-content: center;
   margin-right: 50px;
+
+  @media only screen and (max-width: 700px) {
+    margin-top: 17.5px;
+    margin-bottom: 17.5px;
+    margin-right: 0;
+  }
+`
+
+const CategoryName = styled.div`
+  color: #f2e3b4;
+  font-family: "Roboto";
+  font-size: 20px;
+  margin-bottom: 30px;
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
+    0px 18px 23px rgba(0, 0, 0, 0.1);
+
+  @media only screen and (max-width: 700px) {
+    margin-bottom: 10px;
+  }
+`
+
+const ItemContent = styled.div`
+  height: 100px;
+
+  @media only screen and (max-width: 700px) {
+    height: fit-content;
+  }
 `
 
 const CopyrightArea = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 40px;
   background: #3a5344;
-  text-align: center;
   font-size: 15px;
   font-family: "Roboto";
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
-
-const categoryStyle = {
-  color: "#F2E3B4",
-  fontFamily: "Roboto",
-  fontSize: "20px",
-  marginBottom: "30px",
-  textShadow:
-    "0px 4px 3px rgba(0,0,0,0.4), 0px 8px 13px rgba(0,0,0,0.1), 0px 18px 23px rgba(0,0,0,0.1)",
-}
-
-const itemStyle = {
-  height: "100px",
-}
-
 const contentStyle = {
   color: "#F2E3B4",
   fontSize: "18px",
@@ -77,8 +104,8 @@ const Footer = () => {
       <FooterArea>
         <ContentArea>
           <RowItem>
-            <div style={categoryStyle}>Developer</div>
-            <div style={itemStyle}>
+            <CategoryName>Developer</CategoryName>
+            <ItemContent>
               <div style={contentStyle}>이 승 우</div>
               <div
                 style={{
@@ -89,11 +116,11 @@ const Footer = () => {
               >
                 LEE SEUNGWOO
               </div>
-            </div>
+            </ItemContent>
           </RowItem>
           <RowItem>
-            <div style={categoryStyle}>Link</div>
-            <div style={itemStyle}>
+            <CategoryName>Link</CategoryName>
+            <ItemContent>
               <div
                 style={{
                   ...contentStyle,
@@ -119,11 +146,11 @@ const Footer = () => {
                   -top
                 </div>
               </div>
-            </div>
+            </ItemContent>
           </RowItem>
           <RowItem>
-            <div style={categoryStyle}>Study</div>
-            <div style={itemStyle}>
+            <CategoryName>Study</CategoryName>
+            <ItemContent>
               <div
                 style={{
                   ...contentStyle,
@@ -168,11 +195,11 @@ const Footer = () => {
                   -Stock
                 </Link>
               </div>
-            </div>
+            </ItemContent>
           </RowItem>
           <RowItem>
-            <div style={categoryStyle}>Contact</div>
-            <div style={itemStyle}>
+            <CategoryName>Contact</CategoryName>
+            <ItemContent>
               <div
                 style={{
                   ...contentStyle,
@@ -217,7 +244,7 @@ const Footer = () => {
               >
                 <FaFacebookSquare style={{ marginRight: "5px" }} /> dev.timosean
               </div>
-            </div>
+            </ItemContent>
           </RowItem>
         </ContentArea>
       </FooterArea>

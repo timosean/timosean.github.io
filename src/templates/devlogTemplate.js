@@ -4,6 +4,7 @@ import Comment from "../components/comment"
 import styled from "styled-components"
 import backimg from "../images/oldpaper.jpg"
 import { Link } from "gatsby"
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
 
 //Styled Components
 const EntirePage = styled.div`
@@ -31,6 +32,11 @@ const ContentArea = styled.div`
   border-radius: 10px;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   position: relative;
+
+  @media only screen and (max-width: 700px) {
+    width: 90vw;
+    min-width: 90vw;
+  }
 `
 const InfoArea = styled.div`
   width: 100%;
@@ -52,11 +58,20 @@ const LinkContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+
+  @media only screen and (max-width: 700px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 `
 const InvisibleItem = styled.div`
   width: 200px;
   padding: 15px;
   visibility: hidden;
+
+  @media only screen and (max-width: 700px) {
+    width: 100px;
+  }
 `
 const LinkItem = styled.div`
   width: 200px;
@@ -67,6 +82,19 @@ const LinkItem = styled.div`
   background: white;
   border-radius: 10px;
   border: 1px solid #cccccc;
+
+  @media only screen and (max-width: 700px) {
+    width: 100px;
+    padding: 10px !important;
+  }
+`
+const NextorPrev = styled.span`
+  color: gray;
+  font-size: 14px;
+
+  @media only screen and (max-width: 700px) {
+    display: none;
+  }
 `
 const ArticleLink = styled(Link)`
   font-family: "Apple SD Gothic Bold";
@@ -76,6 +104,26 @@ const ArticleLink = styled(Link)`
 
   &:hover {
     text-decoration: underline;
+  }
+
+  @media only screen and (max-width: 700px) {
+    display: none;
+  }
+`
+const MobileArticleLink = styled(Link)`
+  font-family: "Apple SD Gothic Bold";
+  font-size: 14px;
+  color: black;
+  text-decoration: none;
+  display: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @media only screen and (max-width: 700px) {
+    display: flex;
+    align-items: center;
   }
 `
 const articleHeaderStyle = {
@@ -117,23 +165,19 @@ const devlogTemplate = React.memo(props => {
           <LinkContainer>
             {/*이전글과 다음글 링크가 동시에 존재하는 게시물일 때, '이전 글'링크의 marginRight 설정*/}
             {previous && next && (
-              <LinkItem style={{ marginRight: "350px" }}>
-                <span
-                  style={{
-                    color: "gray",
-                    fontSize: "14px",
-                  }}
-                >
-                  이전 글
-                </span>
+              <LinkItem style={{ marginRight: "44%" }}>
+                <NextorPrev>이전 글</NextorPrev>
                 <ArticleLink to={next.frontmatter.path}>
                   {next.frontmatter.title}
                 </ArticleLink>
+                <MobileArticleLink to={next.frontmatter.path}>
+                  <IoIosArrowBack /> 이전 글
+                </MobileArticleLink>
               </LinkItem>
             )}
 
             {/*'이전 글' 링크가 없다면, 있는 것 처럼 invisible item을 줘서 '다음 글'의 위치 유지*/}
-            {!next && <InvisibleItem style={{ marginRight: "350px" }} />}
+            {!next && <InvisibleItem style={{ marginRight: "44%" }} />}
 
             {previous && (
               <LinkItem
@@ -142,38 +186,32 @@ const devlogTemplate = React.memo(props => {
                   paddingRight: "16px",
                 }}
               >
-                <span
-                  style={{
-                    color: "gray",
-                    fontSize: "14px",
-                    textAlign: "right",
-                  }}
-                >
-                  다음 글
-                </span>
+                <NextorPrev style={{ textAlign: "right" }}>다음 글</NextorPrev>
                 <ArticleLink
                   to={previous.frontmatter.path}
                   style={{ textAlign: "right" }}
                 >
                   {previous.frontmatter.title}
                 </ArticleLink>
+                <MobileArticleLink
+                  to={previous.frontmatter.path}
+                  style={{ justifyContent: "flex-end" }}
+                >
+                  다음 글 <IoIosArrowForward />
+                </MobileArticleLink>
               </LinkItem>
             )}
 
             {/*'다음 글' 링크가 없고, '이전 글' 링크만 있다면, '다음 글' 링크가 있는 것 처럼 invisible item을 줘서 '다음 글'의 위치 유지*/}
             {!previous && next && (
-              <LinkItem style={{ marginRight: "350px" }}>
-                <span
-                  style={{
-                    color: "gray",
-                    fontSize: "14px",
-                  }}
-                >
-                  이전 글
-                </span>
+              <LinkItem style={{ marginRight: "44%" }}>
+                <NextorPrev>이전 글</NextorPrev>
                 <ArticleLink to={next.frontmatter.path}>
                   {next.frontmatter.title}
                 </ArticleLink>
+                <MobileArticleLink to={next.frontmatter.path}>
+                  <IoIosArrowBack /> 이전 글
+                </MobileArticleLink>
               </LinkItem>
             )}
             {!previous && next && <InvisibleItem />}

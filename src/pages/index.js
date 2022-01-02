@@ -17,7 +17,7 @@ import { FaDirections } from "react-icons/fa"
 const HomeDiv = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
   background-image: url(${backimg});
   background-size: cover;
@@ -33,6 +33,11 @@ const WelcomeDiv = styled.div`
   height: 520px;
   padding-left: 9vw;
   justify-content: center;
+
+  @media only screen and (max-width: 700px) {
+    min-width: 100vw;
+    width: 100vw;
+  }
 `
 
 //메인페이지의 설명글
@@ -72,7 +77,6 @@ const StyledRotatingText = styled(ReactRotatingText)`
   font-size: 80px;
   font-family: "Apple SD Gothic Bold";
   text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
-  min-width: 490px;
   margin-bottom: 0.5rem;
   height: 90px;
   line-height: 90px;

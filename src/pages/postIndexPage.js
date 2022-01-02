@@ -27,16 +27,37 @@ const ContentArea = styled.div`
   background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+
+  @media only screen and (max-width: 700px) {
+    width: 90vw;
+    min-width: 90vw;
+  }
+`
+
+const Title = styled.h1`
+  font-family: "Roboto";
+  font-size: 35px;
+  margin-bottom: 1.45rem;
+  padding-bottom: 1.45rem;
+  padding-top: 1.45rem;
 `
 
 const PostContainer = styled.div`
   display: flex;
   justify-content: center;
+
+  @media only screen and (max-width: 700px) {
+    width: 90%;
+  }
 `
 
 const PostItem = styled.div`
   width: 700px;
   margin-bottom: 50px;
+
+  @media only screen and (max-width: 700px) {
+    width: 100%;
+  }
 `
 
 const PostLink = styled(Link)`
@@ -99,17 +120,7 @@ const PostIndexPage = () => {
       <Seo title="Posts" />
       <EntirePage>
         <ContentArea>
-          <h1
-            style={{
-              fontFamily: "Roboto",
-              fontSize: "35px",
-              marginBottom: "1.45rem",
-              paddingBottom: "1.45rem",
-              paddingTop: "1.45rem",
-            }}
-          >
-            Recent Posts
-          </h1>
+          <Title>Recent Posts</Title>
           <PostContainer>
             <ul style={{ listStyle: "none", margin: 0, width: "100%" }}>
               {data.allMarkdownRemark.edges.map(({ node }) => (
