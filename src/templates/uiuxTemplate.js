@@ -91,6 +91,7 @@ const LinkItem = styled.div`
 const NextorPrev = styled.span`
   color: gray;
   font-size: 14px;
+  font-family: "Apple SD Gothic";
 
   @media only screen and (max-width: 700px) {
     display: none;
@@ -158,7 +159,10 @@ const uiuxTemplate = React.memo(props => {
 
           {/*글의 내용이 들어가는 섹션*/}
           <MainTextArea>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: html }}
+              style={{ fontFamily: "Apple SD Gothic" }}
+            />
           </MainTextArea>
 
           {/*글 내용 뒤에 '이전글'과 '다음글' 링크가 들어가는 섹션*/}
