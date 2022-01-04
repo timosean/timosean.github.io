@@ -31,7 +31,7 @@ const TitleContainer = styled.div`
   padding: 0;
   height: 80px;
   margin-left: 9vw;
-  margin-right: 19vw;
+  margin-right: 8vw;
 `
 
 //사이트 로고에 대한 전반적인 스타일
@@ -40,7 +40,7 @@ const StyledTitle = styled.h1`
   font-size: 35px;
   text-decoration: none;
   font-family: "Source Sans Pro";
-  min-width: 9vw;
+  min-width: 15vw;
 `
 
 //사이트 로고의 링크에 대한 스타일
@@ -76,13 +76,14 @@ const MenuIcon = styled.div`
 
 //네비게이션 링크들을 감싸는 컨테이너 컴포넌트
 const NavContainer = styled.div`
-  width: 50vw;
+  width: 36vw;
   height: 80px;
   padding: 0;
-  margin-right: 25vw;
+  margin-right: 32vw;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 `
 
 //네비게이션 아이템 하나의 스타일
