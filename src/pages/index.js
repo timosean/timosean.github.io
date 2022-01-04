@@ -358,7 +358,7 @@ const IndexPage = () => (
           <div
             style={{
               fontSize: "18px",
-              fontFamily: "Roboto",
+              fontFamily: "Apple SD Gothic",
               color: "#494A4A",
             }}
           >
@@ -390,7 +390,7 @@ const IndexPage = () => (
           <div
             style={{
               fontSize: "18px",
-              fontFamily: "Roboto",
+              fontFamily: "Apple SD Gothic",
               color: "#494A4A",
             }}
           >
@@ -422,7 +422,7 @@ const IndexPage = () => (
           <div
             style={{
               fontSize: "18px",
-              fontFamily: "Roboto",
+              fontFamily: "Apple SD Gothic",
               color: "#494A4A",
             }}
           >
