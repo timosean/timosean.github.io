@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://timosean.github.io">
-    <img alt="todylog" src="C:/Users/USER/timosean.github.io/src/images/todyicon.png" width="60" />
+    <img alt="todylog" src="./src/images/todyicon.png" width="60" />
   </a>
 </p>
 <h1 align="center">
