@@ -354,3 +354,154 @@ const makeIconDisappear = (name: string) => {
   ))}
 </DropdownSection>
 ```
+
+<br/>
+
+#### (8) class 활용하기, TypeScript에서 e.target 사용하기
+
+아래의 그림처럼, Bottom Navigation에서 클릭한(선택한) 부분만 색상이 변하고 나머지는 다 원래의 검정색으로 복구시키는 기능을
+구현해야했다. 무척이나 구현해보고 싶었지만 아이디어도 떠오르지 않았고 시도해 본 적도 없는 기능이어서 고민을 많이했다.
+
+<p align="center"> 
+<img alt="bottomnav_img" src="https://raw.githubusercontent.com/timosean/timosean.github.io/02e467c66274a12eafa99ad5f3cd7ef2f6d5815a/postimages/prob8.png">
+</p>
+
+그러다가, 클릭된 버튼을 event.target으로 가져와서, 그 버튼에 'isActive'라는 클래스 이름을 부여해주는 식으로 접근해보았다.
+물론 해당 버튼의 styled-components의 스타일에는 다음과 같이 isActive 클래스에 글자색을 바꿔주는 식으로 스타일링했다.
+
+```
+const StyledButton = styled.span`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 0%;
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(26, 26, 26);
+
+  &.isActive {
+    color: rgb(255, 61, 0);
+  }
+`;
+```
+
+우선, 클릭된 버튼을 event.target 으로 가져와서 클래스이름을 추가로 부여해주는 함수 코드는 다음과 같이 작성하였다.
+
+```
+const addClassName = (e: React.MouseEvent<HTMLElement>) : void => {
+	e.target.classList.add('isActive');
+}
+```
+
+이렇게 했는데, 타입스크립트에서 다음과 같은 에러가 발생했다.
+
+> **'EventTarget' 형식에 'classList' 속성이 없습니다**
+
+열심히 서칭해본 결과, TypeScript에서는 다음과 같이 `as`를 사용해서 타입캐스팅을 해주면 오류가 해결된다는 글을 보았다.
+
+```
+  const addClassName = (e: React.MouseEvent<HTMLElement>) : void => {
+    const target = e.target as HTMLSpanElement;
+    const {classList} = target;
+  }
+```
+
+그렇게 해서 e.target의 classList를 뽑아내는 것까지 성공하고, 그 이후에 add와 remove 메서드도 사용할 수 있게 되었다.
+해당 컴포넌트와 함수 코드는 다음과 같다.
+
+```
+//해당 버튼 컴포넌트 구조
+const StyledButton = styled.span`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 0%;
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(26, 26, 26);
+
+  &.isActive {
+    color: rgb(255, 61, 0);
+  }
+`;
+
+//StyledButton의 자식요소이므로, 버튼의 color 속성을 물려받도록 color: inherit 설정
+const ContentName = styled.div`
+  font-size: 9px;
+  font-weight: 600;
+  color: inherit;
+  line-height: 12px;
+  letter-spacing: normal;
+  margin: 0px;
+`;
+
+//StyledButton의 자식요소이므로, 버튼의 color 속성을 물려받도록 color: inherit 설정
+const IconArea = styled.span`
+  color: inherit;
+  font-size: 22px;
+`;
+
+<StyledButton
+  onClick={(e) => {
+    setOpened(false);
+    addClassName(e);
+  }}
+>
+  <IconArea className="classBtn">
+    <AiOutlinePlaySquare />
+  </IconArea>
+  <div className="spacingBox"> </div>
+  <ContentName className="classBtn">클래스</ContentName>
+</StyledButton>
+
+
+  const addClassName = (e: React.MouseEvent<HTMLElement>): void => {
+    //일단 지금 오렌지색으로 변해있는 것의 isActive 클래스를 지우고
+    const removeTarget = document.querySelector(".isActive");
+    removeTarget?.classList.remove("isActive");
+
+    //현재 선택된 버튼에 isActive 클래스를 추가해 오렌지색으로 바꾼다.
+    const target = e.target as HTMLSpanElement;
+    const { classList } = target;
+    classList.add("isActive");
+  };
+```
+
+<br/>
+
+#### (9) 포인터 이벤트의 대상이 되고 싶지 않다면? pointer-events: none;
+
+위 (8)번의 문제를 해결하고 나니 문제가 하나 더 발생했다. 위 코드에서처럼 가장 바깥쪽 span(즉, StyledButton 컴포넌트)에 onClick 이벤트를
+준 것을 볼 수 있다. 이렇게 해당 영역을 클릭하면 StyledButton의 color 속성이 바뀌고 그 안의 아이콘과 글자의 color는 inherit이므로 저절로 바뀌도록
+해놓은 것이다.  
+하지만, 버튼 안의 아이콘과 텍스트를 클릭하면 색이 변하지 않고, StyledButton의 아이콘과 텍스트를 제외한 나머지 영역을 클릭해야 아이콘과 텍스트의 색이
+바뀌는 문제가 발생했다.
+
+<p align="center"> 
+<img alt="bottomnav_img" src="https://raw.githubusercontent.com/timosean/timosean.github.io/0fdb210c89106f7cd1498ce35e19235bdd9d11ee/postimages/prob10.png">
+</p>
+
+그래서 아이콘과 텍스트가 클릭되어도 무시하고 StyledButton이 클릭되도록 하는 방법을 검색해본 결과, 예상 외로 상당히 간단하게 CSS로 해결할 수 있는
+부분이었다. 아이콘과 텍스트에 `pointer-events: none;`을 주면 아무리 그 위를 클릭해도 무시되고, 대신 부모요소가 클릭된다.
+
+```
+//pointer-events: none 추가
+
+const ContentName = styled.div`
+  font-size: 9px;
+  font-weight: 600;
+  color: inherit;
+  line-height: 12px;
+  letter-spacing: normal;
+  margin: 0px;
+  pointer-events: none;
+`;
+
+const IconArea = styled.span`
+  color: inherit;
+  font-size: 22px;
+  pointer-events: none;
+`;
+```
