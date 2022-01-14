@@ -160,7 +160,11 @@ const PostTemplate = React.memo(props => {
           <MainTextArea>
             <div
               dangerouslySetInnerHTML={{ __html: html }}
-              style={{ fontFamily: "Apple SD Gothic" }}
+              style={{
+                fontFamily: "Apple SD Gothic",
+                boxSizing: "border-box",
+                width: "100%",
+              }}
             />
           </MainTextArea>
 

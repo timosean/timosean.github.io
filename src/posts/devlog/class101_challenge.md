@@ -21,6 +21,15 @@ path: "/class101-challenge"
 
 #### (1) TypeScript × Styled-Components
 
+**[설치]**  
+JavaScript × React로 Styled-Components를 설치할 때와 똑같이 설치해주었는데 자꾸 오류가 났다.  
+찾아보니 TypeScript로 Styled-Components를 설치할 때는 다음과 같이 설치해야 한다고 한다.
+
+```
+yarn add styled-components @types/styled-components
+```
+
+**[props 전달]**  
 이전에도 Styled-Components 를 많이 써왔지만 TypeScript 자체가 처음이기 때문에 props 전달하는 문법이 따로 있다는 것을 몰랐다.
 Styled-Component에게 <ComponentName propsName={propsValue} />와 같이 그냥 props를 전달하였더니 다음과 같은 오류가 발생했다.
 
@@ -48,7 +57,7 @@ const StyledNavbar = styled.div<{isOpened: boolean}>`
 #### (2) 테두리를 없앴는데 테두리가 생긴다..
 
 CLASS101 사이트의 검색창을 누르면 다음과 같이 검색창 테두리에 아무런 변화가 없다.  
-<img alt="CLASS101 검색창" src="https://raw.githubusercontent.com/timosean/timosean.github.io/3d1ffb5759c858594b32918a05040e3926010eeb/postimage/prob2.png"/>
+<img alt="CLASS101 검색창" src="https://raw.githubusercontent.com/timosean/timosean.github.io/0fdb210c89106f7cd1498ce35e19235bdd9d11ee/postimages/prob2.png"/>
 
 하지만 분명 `border: none;`을 주었는데도 불구하고 검색창을 클릭하면 검은 테두리가 활성화되었다.
 
@@ -73,7 +82,7 @@ const StyledInput = styled.input<{ isOpened: boolean }>`
 CLASS101 사이트 상단 내비게이션 바에 '1월 가입혜택'을 보면 빨간 뱃지가 우상단에 달려있다.
 
 <p align="center">
-<img alt="1월 가입혜택 이미지" src="https://raw.githubusercontent.com/timosean/timosean.github.io/master/postimage/prob3.png">
+<img alt="1월 가입혜택 이미지" src="https://raw.githubusercontent.com/timosean/timosean.github.io/0fdb210c89106f7cd1498ce35e19235bdd9d11ee/postimages/prob3.png">
 </p>
 
 하지만 내가 빨간 뱃지를 만들고 배치했을 때에는 계속 전체 높이의 중간에만 위치되었다.  
@@ -96,7 +105,7 @@ CLASS101 사이트 상단 내비게이션 바에 '1월 가입혜택'을 보면 �
 해당 메뉴의 세부 메뉴 리스트가 옆에 등장해야 한다. (아래 그림과 같다.)
 
 <p align="center"> 
-<img alt="dropdown_img" src="https://raw.githubusercontent.com/timosean/timosean.github.io/master/postimage/prob4.png">
+<img alt="dropdown_img" src="https://raw.githubusercontent.com/timosean/timosean.github.io/0fdb210c89106f7cd1498ce35e19235bdd9d11ee/postimages/prob4.png">
 </p>
 
 이를 구현하기 위해서, 드롭다운 리스트에 필요한 정보를 다음과 같이 객체 배열로 만들었다.
@@ -241,8 +250,30 @@ const [categoryName, setCategoryName] = useState("");
 
 그러나 다음과 같은 에러가 발생했다.
 
-> Object is possibly 'undefined'
+> **Object is possibly 'undefined'**
 
 이것은 타입스크립트를 사용해서 발생한 문제로, 타입스크립트가 값이 undefined 일 수도 있다고 판단한 요소 뒤에 옵셔널 체이닝 연산자 `?.`를 추가하면 정상적으로 출력되는 것을 확인할 수 있다.  
 위 코드에서 `CategoryMenus.find((menu) => menu.name === categoryName)?.submenus.map ~~`  
 이렇게 고쳐주었다.
+
+<br/>
+
+#### (5) hover도 좋지만 MouseEvent를 적극 활용하자
+
+이 Todylog를 개발하면서 마우스 관련 이벤트는 css :hover만으로 해결되는 경우가 다였어서 :hover밖에 생각이 안났었는데  
+마우스를 올리거나 뗐을 때 등등 마우스 관련 수많은 event들이 있다는 것을 생각해냈다😂 (너무 당연한건데... 더 열심히 해야겠음)  
+onMouseEnter와 onMouseLeave 이벤트가 일어날 때 isMenuOpened라는 state의 상태를 바꿔주는 식으로 구현했다.  
+아래는 예시코드이다.
+
+```
+const [isMenuOpened, setMenuOpened] = useState(false);
+
+<Button onMouseEnter={() => setMenuOpened(true)} onMouseLeave={() => setMenuOpened(false)}>
+```
+
+위 (4)번의 그림에서 보듯이 '전체 카테고리'에 마우스를 올리면 드롭다운 리스트가 나타나고, 이 리스트에서 마우스를 바깥으로 옮기면 다시 리스트가 사라진다.
+처음에는 단순하게 '전체 카테고리' 버튼에 onMouseEnter와 onMouseLeave를 둘 다 걸어주었는데, 이렇게 했더니 (너무 당연하지만)
+드롭다운 리스트가 나타나고, 사용자가 드롭다운 메뉴에 마우스를 올리려고 하는 순간 마우스가 '전체 카테고리' 버튼을 벗어나게 되면서 드롭다운 리스트가 사라져버렸다.
+(약 올리는 것도 아니고🤣)
+
+이런 문제를 개선하기 위해서 '전체 카테고리' 버튼에는 onMouseLeave 이벤트를 걸어주지 않고, 드롭다운 리스트에 onMouseLeave 이벤트를 걸어주었다.
