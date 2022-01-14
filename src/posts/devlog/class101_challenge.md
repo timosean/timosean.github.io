@@ -277,3 +277,32 @@ const [isMenuOpened, setMenuOpened] = useState(false);
 (약 올리는 것도 아니고🤣)
 
 이런 문제를 개선하기 위해서 '전체 카테고리' 버튼에는 onMouseLeave 이벤트를 걸어주지 않고, 드롭다운 리스트에 onMouseLeave 이벤트를 걸어주었다.
+
+<br/>
+
+#### (6) position: relative / absolute 활용하기
+
+위 (4)번의 그림처럼 전체 카테고리 드롭다운의 메뉴에 마우스를 올리면 해당 메뉴의 세부메뉴 리스트가 옆에 등장한다.  
+이걸 구현하는 데에 있어서 처음에는 다음과 같이 구현했었다.
+
+```
+<MainDropDownList onMouseEnter={() => setMenuOpened(true)} onMouseLeave={() => setMenuOpened(false)}>
+  <SubMenu onMouseEnter={() => setSubmenuOpened(true)}>
+<MainDropDownList />
+
+<SubMenuList onMouseLeave={() => setSubmenuOpened(false)}/>
+```
+
+여기에서 문제는, MainDropDownList에서 마우스가 떠나면 서브메뉴 리스트도 화면에서 사라져야 하는데, MainDropDownList만 화면에서 사라지고,
+서브메뉴 리스트는 화면에 남아 둥둥 떠있게 되었다.  
+MainDropDownList에서 마우스가 떠날 때 서브메뉴 리스트도 없어지게 만드려면 서브메뉴 리스트를 MainDropDownList의 자식으로 넣어야되겠다는
+생각이 들었다.
+
+마침 MainDropDownList의 position 속성도 `position: relative;` 였어서, 서브메뉴 리스트의 포지션을 `position: absolute;`를 주고,
+부모인 MainDropDownList에 상대적으로 `top`속성과 `left`속성을 주어 위치를 조절하면 되겠다는 생각이 들었고, 이렇게해서 해결할 수 있게 되었다.
+
+<br/>
+
+#### (7) document.getElementById 활용하기
+
+위 (4
