@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@deckdeckgo/highlight-code": "^3.6.0",
     "babel-plugin-styled-components": "^2.0.2",
     "gatsby": "^4.4.0",
     "gatsby-plugin-gatsby-cloud": "^4.4.0",
@@ -15,7 +16,9 @@
     "gatsby-plugin-scroll-reveal": "^0.0.7",
     "gatsby-plugin-sharp": "^4.4.0",
     "gatsby-plugin-styled-components": "^5.4.0",
+    "gatsby-remark-highlight-code": "^3.2.0",
     "gatsby-source-filesystem": "^4.4.0",
+    "gatsby-transformer-remark": "^5.5.1",
     "gatsby-transformer-sharp": "^4.4.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",

@@ -38,22 +38,16 @@ Styled-Component에게 <ComponentName propsName={propsValue} />와 같이 그냥
 Styled-Components에게 props를 전달하려면 Styled-Component를 선언할 때 다음과 같이 작성해주어야 했다.
 (단일 props일 경우에 아래와 같이 작성한다. 전달할 props가 많으면 interface를 작성해야 한다고 한다.)
 
-```javascript
-const ComponentName =
-  styled.div <
-  { propsName: 해당Type } >
-  `
+```
+const ComponentName = styled.div <{ propsName: 해당Type } >`
   style here
 `
 ```
 
 예를 들면 다음과 같다.
 
-```javascript
-const StyledNavbar =
-  styled.div <
-  { isOpened: boolean } >
-  `
+```
+const StyledNavbar = styled.div <{ isOpened: boolean } >`
   style here
  `
 ```
@@ -70,11 +64,8 @@ CLASS101 사이트의 검색창을 누르면 다음과 같이 검색창 테두�
 이는 input 태그의 focus 상태에서의 스타일링에서 아웃라인을 없애주면 해결이 된다.
 나는 styled-components를 사용하였기 때문에 컴포넌트 내부에서 다음과 같이 스타일링 해주었다.
 
-```javascript
-const StyledInput =
-  styled.input <
-  { isOpened: boolean } >
-  `
+```
+const StyledInput = styled.input <{ isOpened: boolean } >`
 
   many codes here...
 
@@ -329,7 +320,7 @@ MainDropDownList에서 마우스가 떠날 때 서브메뉴 리스트도 없어�
 마찬가지로, 카테고리 이름을 감싸는 컴포넌트에도 id를 주는데, 아이콘의 id와 공통된 단어가 들어가게 해줌으로써, 함수 하나에서 템플릿 리터럴을 이용하여
 해결할 수 있게 했다. (다음의 코드 참고)
 
-```javascript
+```
 //아이콘 visibility를 조절하는 함수
 const makeIconAppear = (name: string) => {
   document.getElementById(name).style.visibility = "visible"
@@ -341,7 +332,7 @@ const makeIconDisappear = (name: string) => {
 }
 
 //해당 컴포넌트 코드
-;<DropdownSection>
+<DropdownSection>
   <SectionTitle element="h2">크리에이티브</SectionTitle>
   {CategoryMenus.slice(0, 9).map(menu => (
     <div

@@ -5,6 +5,8 @@ import styled from "styled-components"
 import backimg from "../images/table.jpg"
 import { Link } from "gatsby"
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
+import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader"
+deckDeckGoHighlightElement()
 
 //Styled Components
 const EntirePage = styled.div`

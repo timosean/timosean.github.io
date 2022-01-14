@@ -5,6 +5,8 @@ import styled from "styled-components"
 import backimg from "../images/daily.jpg"
 import { Link } from "gatsby"
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
+import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader"
+deckDeckGoHighlightElement()
 
 //footer를 제외한 전체 페이지를 감싸는 컨테이너 컴포넌트
 const EntirePage = styled.div`
