@@ -38,16 +38,22 @@ Styled-Component에게 <ComponentName propsName={propsValue} />와 같이 그냥
 Styled-Components에게 props를 전달하려면 Styled-Component를 선언할 때 다음과 같이 작성해주어야 했다.
 (단일 props일 경우에 아래와 같이 작성한다. 전달할 props가 많으면 interface를 작성해야 한다고 한다.)
 
-```
-const ComponentName = styled.div<{propsName: 해당Type}>`
+```javascript
+const ComponentName =
+  styled.div <
+  { propsName: 해당Type } >
+  `
   style here
 `
 ```
 
 예를 들면 다음과 같다.
 
-```
-const StyledNavbar = styled.div<{isOpened: boolean}>`
+```javascript
+const StyledNavbar =
+  styled.div <
+  { isOpened: boolean } >
+  `
   style here
  `
 ```
@@ -64,15 +70,18 @@ CLASS101 사이트의 검색창을 누르면 다음과 같이 검색창 테두�
 이는 input 태그의 focus 상태에서의 스타일링에서 아웃라인을 없애주면 해결이 된다.
 나는 styled-components를 사용하였기 때문에 컴포넌트 내부에서 다음과 같이 스타일링 해주었다.
 
-```
-const StyledInput = styled.input<{ isOpened: boolean }>`
+```javascript
+const StyledInput =
+  styled.input <
+  { isOpened: boolean } >
+  `
 
   many codes here...
 
   &:focus {
     outline: none;
   }
-`;
+`
 ```
 
 <br/>
@@ -110,7 +119,7 @@ CLASS101 사이트 상단 내비게이션 바에 '1월 가입혜택'을 보면 �
 
 이를 구현하기 위해서, 드롭다운 리스트에 필요한 정보를 다음과 같이 객체 배열로 만들었다.
 
-```
+```javascript
 const CategoryMenus = [
   {
     id: 1,
@@ -224,7 +233,7 @@ Array.map을 이용하여 '전체 카테고리'를 hover했을 때 나타나는 
 여기에서 hover한 메뉴 이름을 useState로 저장해놓고, 위의 객체 배열에서 name이 state에 저장되어 있는 이름과 같은 객체를 찾아서 submenus를 다시 map 해주는 식으로 구현했다.  
 어차피 state에 저장되어있는 이름과 name값이 같은 객체는 한 개 뿐이므로, Array.find 메소드 (주어진 판별 함수를 만족하는 첫 번째 요소를 반환) 를 사용하여 다음과 같이 구현하려고 했다.
 
-```
+```javascript
 const [categoryName, setCategoryName] = useState("");
 
 //전체 카테고리 드롭다운 리스트
@@ -265,7 +274,7 @@ const [categoryName, setCategoryName] = useState("");
 `onMouseEnter`와 `onMouseLeave` 이벤트가 일어날 때 isMenuOpened라는 state의 상태를 바꿔주는 식으로 구현했다.  
 아래는 예시코드이다.
 
-```
+```javascript
 const [isMenuOpened, setMenuOpened] = useState(false);
 
 <Button onMouseEnter={() => setMenuOpened(true)} onMouseLeave={() => setMenuOpened(false)}>
@@ -285,7 +294,7 @@ const [isMenuOpened, setMenuOpened] = useState(false);
 위 (4)번의 그림처럼 전체 카테고리 드롭다운의 메뉴에 마우스를 올리면 해당 메뉴의 세부메뉴 리스트가 옆에 등장한다.  
 이걸 구현하는 데에 있어서 처음에는 다음과 같이 구현했었다.
 
-```
+```javascript
 <MainDropDownList onMouseEnter={() => setMenuOpened(true)} onMouseLeave={() => setMenuOpened(false)}>
   <SubMenu onMouseEnter={() => setSubmenuOpened(true)}>
 <MainDropDownList />
@@ -320,25 +329,25 @@ MainDropDownList에서 마우스가 떠날 때 서브메뉴 리스트도 없어�
 마찬가지로, 카테고리 이름을 감싸는 컴포넌트에도 id를 주는데, 아이콘의 id와 공통된 단어가 들어가게 해줌으로써, 함수 하나에서 템플릿 리터럴을 이용하여
 해결할 수 있게 했다. (다음의 코드 참고)
 
-```
+```javascript
 //아이콘 visibility를 조절하는 함수
 const makeIconAppear = (name: string) => {
-  document.getElementById(name).style.visibility = "visible";
-  document.getElementById(`link-${name}`).style.fontWeight = "bold";
-};
+  document.getElementById(name).style.visibility = "visible"
+  document.getElementById(`link-${name}`).style.fontWeight = "bold"
+}
 const makeIconDisappear = (name: string) => {
-  document.getElementById(name).style.visibility = "hidden";
-  document.getElementById(`link-${name}`).style.fontWeight = "normal";
-};
+  document.getElementById(name).style.visibility = "hidden"
+  document.getElementById(`link-${name}`).style.fontWeight = "normal"
+}
 
 //해당 컴포넌트 코드
-<DropdownSection>
+;<DropdownSection>
   <SectionTitle element="h2">크리에이티브</SectionTitle>
-  {CategoryMenus.slice(0, 9).map((menu) => (
+  {CategoryMenus.slice(0, 9).map(menu => (
     <div
       onMouseEnter={() => {
-      setCategoryName(`${menu.name}`);
-      setSubmenuHover(true);
+        setCategoryName(`${menu.name}`)
+        setSubmenuHover(true)
       }}
       key={menu.id}
     >
@@ -369,7 +378,7 @@ const makeIconDisappear = (name: string) => {
 그러다가, 클릭된 버튼을 event.target으로 가져와서, 그 버튼에 'isActive'라는 클래스 이름을 부여해주는 식으로 접근해보았다.
 물론 해당 버튼의 styled-components의 스타일에는 다음과 같이 isActive 클래스에 글자색을 바꿔주는 식으로 스타일링했다.
 
-```
+```javascript
 const StyledButton = styled.span`
   display: flex;
   flex-direction: column;
@@ -383,14 +392,14 @@ const StyledButton = styled.span`
   &.isActive {
     color: rgb(255, 61, 0);
   }
-`;
+`
 ```
 
 우선, 클릭된 버튼을 event.target 으로 가져와서 클래스이름을 추가로 부여해주는 함수 코드는 다음과 같이 작성하였다.
 
-```
-const addClassName = (e: React.MouseEvent<HTMLElement>) : void => {
-	e.target.classList.add('isActive');
+```javascript
+const addClassName = (e: React.MouseEvent<HTMLElement>): void => {
+  e.target.classList.add("isActive")
 }
 ```
 
@@ -400,7 +409,7 @@ const addClassName = (e: React.MouseEvent<HTMLElement>) : void => {
 
 열심히 서칭해본 결과, TypeScript에서는 다음과 같이 `as`를 사용해서 타입캐스팅을 해주면 오류가 해결된다는 글을 보았다.
 
-```
+```javascript
   const addClassName = (e: React.MouseEvent<HTMLElement>) : void => {
     const target = e.target as HTMLSpanElement;
     const {classList} = target;
@@ -410,7 +419,7 @@ const addClassName = (e: React.MouseEvent<HTMLElement>) : void => {
 그렇게 해서 e.target의 classList를 뽑아내는 것까지 성공하고, 그 이후에 add와 remove 메서드도 사용할 수 있게 되었다.
 해당 컴포넌트와 함수 코드는 다음과 같다.
 
-```
+```javascript
 //해당 버튼 컴포넌트 구조
 const StyledButton = styled.span`
   display: flex;
@@ -443,6 +452,7 @@ const IconArea = styled.span`
   font-size: 22px;
 `;
 
+//구현 코드
 <StyledButton
   onClick={(e) => {
     setOpened(false);
@@ -456,17 +466,17 @@ const IconArea = styled.span`
   <ContentName className="classBtn">클래스</ContentName>
 </StyledButton>
 
+//클래스 리스트 조작을 위한 함수
+const addClassName = (e: React.MouseEvent<HTMLElement>): void => {
+  //일단 지금 오렌지색으로 변해있는 것의 isActive 클래스를 지우고
+  const removeTarget = document.querySelector(".isActive");
+  removeTarget?.classList.remove("isActive");
 
-  const addClassName = (e: React.MouseEvent<HTMLElement>): void => {
-    //일단 지금 오렌지색으로 변해있는 것의 isActive 클래스를 지우고
-    const removeTarget = document.querySelector(".isActive");
-    removeTarget?.classList.remove("isActive");
-
-    //현재 선택된 버튼에 isActive 클래스를 추가해 오렌지색으로 바꾼다.
-    const target = e.target as HTMLSpanElement;
-    const { classList } = target;
-    classList.add("isActive");
-  };
+  //현재 선택된 버튼에 isActive 클래스를 추가해 오렌지색으로 바꾼다.
+  const target = e.target as HTMLSpanElement;
+  const { classList } = target;
+  classList.add("isActive");
+};
 ```
 
 <br/>
@@ -486,7 +496,7 @@ const IconArea = styled.span`
 그래서 아이콘과 텍스트가 클릭되어도 무시하고 StyledButton이 클릭되도록 하는 방법을 검색해본 결과, 예상 외로 상당히 간단하게 CSS로 해결할 수 있는
 부분이었다. 아이콘과 텍스트에 `pointer-events: none;`을 주면 아무리 그 위를 클릭해도 무시되고, 대신 부모요소가 클릭된다.
 
-```
+```javascript
 //pointer-events: none 추가
 
 const ContentName = styled.div`
@@ -497,11 +507,11 @@ const ContentName = styled.div`
   letter-spacing: normal;
   margin: 0px;
   pointer-events: none;
-`;
+`
 
 const IconArea = styled.span`
   color: inherit;
   font-size: 22px;
   pointer-events: none;
-`;
+`
 ```
