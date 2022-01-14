@@ -260,9 +260,9 @@ const [categoryName, setCategoryName] = useState("");
 
 #### (5) hover도 좋지만 MouseEvent를 적극 활용하자
 
-이 Todylog를 개발하면서 마우스 관련 이벤트는 css :hover만으로 해결되는 경우가 다였어서 :hover밖에 생각이 안났었는데  
+이 Todylog를 개발하면서 마우스 관련 이벤트는 css `:hover`만으로 해결되는 경우가 다였어서 `:hover`밖에 생각이 안났었는데  
 마우스를 올리거나 뗐을 때 등등 마우스 관련 수많은 event들이 있다는 것을 생각해냈다😂 (너무 당연한건데... 더 열심히 해야겠음)  
-onMouseEnter와 onMouseLeave 이벤트가 일어날 때 isMenuOpened라는 state의 상태를 바꿔주는 식으로 구현했다.  
+`onMouseEnter`와 `onMouseLeave` 이벤트가 일어날 때 isMenuOpened라는 state의 상태를 바꿔주는 식으로 구현했다.  
 아래는 예시코드이다.
 
 ```
@@ -272,11 +272,11 @@ const [isMenuOpened, setMenuOpened] = useState(false);
 ```
 
 위 (4)번의 그림에서 보듯이 '전체 카테고리'에 마우스를 올리면 드롭다운 리스트가 나타나고, 이 리스트에서 마우스를 바깥으로 옮기면 다시 리스트가 사라진다.
-처음에는 단순하게 '전체 카테고리' 버튼에 onMouseEnter와 onMouseLeave를 둘 다 걸어주었는데, 이렇게 했더니 (너무 당연하지만)
+처음에는 단순하게 '전체 카테고리' 버튼에 `onMouseEnter`와 `onMouseLeave`를 둘 다 걸어주었는데, 이렇게 했더니 (너무 당연하지만)
 드롭다운 리스트가 나타나고, 사용자가 드롭다운 메뉴에 마우스를 올리려고 하는 순간 마우스가 '전체 카테고리' 버튼을 벗어나게 되면서 드롭다운 리스트가 사라져버렸다.
 (약 올리는 것도 아니고🤣)
 
-이런 문제를 개선하기 위해서 '전체 카테고리' 버튼에는 onMouseLeave 이벤트를 걸어주지 않고, 드롭다운 리스트에 onMouseLeave 이벤트를 걸어주었다.
+이런 문제를 개선하기 위해서 '전체 카테고리' 버튼에는 `onMouseLeave` 이벤트를 걸어주지 않고, 드롭다운 리스트에 `onMouseLeave` 이벤트를 걸어주었다.
 
 <br/>
 
@@ -305,4 +305,52 @@ MainDropDownList에서 마우스가 떠날 때 서브메뉴 리스트도 없어�
 
 #### (7) document.getElementById 활용하기
 
-위 (4
+아래의 그림처럼 전체 카테고리 드롭다운에서 한 카테고리에 마우스를 올린 후 해당 세부메뉴 리스트로 마우스를 옮기게 되면, 전체 카테고리 드롭다운에서 선택된 카테고리의 글자가 진해지면서 오른편에 화살표가 나타나게 된다.
+
+<p align="center"> 
+<img alt="dropdown_img" src="https://raw.githubusercontent.com/timosean/timosean.github.io/484ba5500915f93798a38dba3e083e521a3e5eac/postimages/prob7.png">
+</p>
+
+그래서 생각한 로직은, 일단 각 카테고리의 아이콘에 id를 해당 카테고리 이름으로 주고, 세부메뉴 리스트에 `onMouseEnter` 시에 `document.getElementById`로 해당
+아이콘을 선택한 다음, `style.visibility="visible"`을 주는 것이다.  
+(물론, 아이콘의 스타일을 정의할 때 `visibility`는 `hidden`으로 주었다.)  
+그리고, 당연히 세부메뉴 리스트에 `onMouseLeave` 시에는 다시 `style.visibility="hidden"`을 주어야 다른 카테고리를 선택했을 때에 그 카테고리의 화살표만
+남아있게 된다.
+
+마찬가지로, 카테고리 이름을 감싸는 컴포넌트에도 id를 주는데, 아이콘의 id와 공통된 단어가 들어가게 해줌으로써, 함수 하나에서 템플릿 리터럴을 이용하여
+해결할 수 있게 했다. (다음의 코드 참고)
+
+```
+//아이콘 visibility를 조절하는 함수
+const makeIconAppear = (name: string) => {
+  document.getElementById(name).style.visibility = "visible";
+  document.getElementById(`link-${name}`).style.fontWeight = "bold";
+};
+const makeIconDisappear = (name: string) => {
+  document.getElementById(name).style.visibility = "hidden";
+  document.getElementById(`link-${name}`).style.fontWeight = "normal";
+};
+
+//해당 컴포넌트 코드
+<DropdownSection>
+  <SectionTitle element="h2">크리에이티브</SectionTitle>
+  {CategoryMenus.slice(0, 9).map((menu) => (
+    <div
+      onMouseEnter={() => {
+      setCategoryName(`${menu.name}`);
+      setSubmenuHover(true);
+      }}
+      key={menu.id}
+    >
+      <SectionItem className="sectionItem">
+        <SectionLink href={menu.to} id={`link-${menu.name}`}>
+          {menu.name}
+        </SectionLink>
+        <RightIcon id={menu.name}>
+          <ChevronRightIcon size={12} />
+        </RightIcon>
+      </SectionItem>
+    </div>
+  ))}
+</DropdownSection>
+```
