@@ -477,7 +477,7 @@ const IconArea = styled.span`
 준 것을 볼 수 있다. 이렇게 해당 영역을 클릭하면 StyledButton의 color 속성이 바뀌고 그 안의 아이콘과 글자의 color는 inherit이므로 저절로 바뀌도록
 해놓은 것이다.  
 하지만, 버튼 안의 아이콘과 텍스트를 클릭하면 색이 변하지 않고, StyledButton의 아이콘과 텍스트를 제외한 나머지 영역을 클릭해야 아이콘과 텍스트의 색이
-바뀌는 문제가 발생했다.
+바뀌는 문제가 발생했다. **사용자는 분명 아이콘을 클릭할텐데 말이다!**
 
 <p align="center"> 
 <img alt="bottomnav_img" src="https://raw.githubusercontent.com/timosean/timosean.github.io/0fdb210c89106f7cd1498ce35e19235bdd9d11ee/postimages/prob10.png">
