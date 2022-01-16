@@ -17,7 +17,7 @@ path: "/class101-challenge"
 
 <hr/>
 
-### [1] 개발 과정에서 고민했던 것들
+### 🛠 개발 과정에서 고민했던 것들
 
 #### (1) TypeScript × Styled-Components
 
@@ -504,5 +504,102 @@ const IconArea = styled.span`
   color: inherit;
   font-size: 22px;
   pointer-events: none;
+`
+```
+
+<br/>
+
+#### (10) Carousel 구현하기 (feat. translate3d, useEffect)
+
+Carousel의 이전/다음 button에서 어떻게 disabled를 조건부로 바로바로 설정하고 해제시켜 줄 수 있을까 생각해보았다.  
+일단, useState로 카운터를 생성한 다음, '다음'버튼을 누르면 카운트를 1 올리고, '이전'버튼을 누르면 카운트를 1 내리는식으로 카운터를 생성하였다.  
+그리고, 각 button의 disabled 속성은 boolean 값을 가지므로, boolean 값을 반환하는 식을 값으로 주었다.
+
+```javascript
+  const [tdCount, setTdCount] = useState(0);
+
+  //특가 캐로슬에서 이전버튼 클릭 시
+  const onLeftBtnClick = () => {
+    setTdCount(tdCount - 1);
+  };
+
+  //특가 캐로슬에서 다음버튼 클릭 시
+  const onRightBtnClick = () => {
+    setTdCount(tdCount + 1);
+  };
+
+
+ <CarouselButton
+id="prevBtn"
+onClick={onLeftBtnClick}
+disabled={tdCount === 0}>
+```
+
+그런데, 문제가 생겼다. 일단 Carousel을 다 만들었는데, useState를 통한 상태 변경이 즉각적으로 이루어지지 않아, Carousel이 즉각적으로 슬라이딩 되지 않았다.
+
+```javascript
+  const [tdCount, setTdCount] = useState(0);
+
+  //특가 캐로슬에서 이전버튼 클릭 시
+  const onLeftBtnClick = () => {
+    setTdCount(tdCount - 1);
+    const wrapper = document.querySelector(".swiper-wrapper") as HTMLDivElement;
+    wrapper.style.transform = `translate3d(${-300 * tdCount + 600}px, 0, 0)`;
+  };
+
+  //특가 캐로슬에서 다음버튼 클릭 시
+  const onRightBtnClick = () => {
+    setTdCount(tdCount + 1);
+    const wrapper = document.querySelector(".swiper-wrapper") as HTMLDivElement;
+    wrapper.style.transform = `translate3d(${-300 * tdCount}px, 0, 0)`;
+  };
+```
+
+그래서 다음과 같이, `useEffect`를 통해 해결하였고, `translate3d`의 계산식도 다음과 같이 하나로 통일해주었다.
+
+```javascript
+  const [tdCount, setTdCount] = useState(0);
+
+//특가 캐로슬에서 이전버튼 클릭 시
+const onLeftBtnClick = () => {
+  setTdCount((num) => num - 1);
+};
+
+//특가 캐로슬에서 다음버튼 클릭 시
+const onRightBtnClick = () => {
+  setTdCount((num) => num + 1);
+};
+
+useEffect(() => {
+  const wrapper = document.querySelector(".swiper-wrapper") as HTMLDivElement;
+  wrapper.style.transform = `translate3d(${-300 * tdCount}px, 0, 0)`;
+}, [tdCount]);
+```
+
+<br/>
+
+#### (11) overflow는 주고, 스크롤바는 숨기기
+
+모바일뷰로 봤을 때, Carousel에서 overflow는 주고, 스크롤바는 숨기고 싶었다.  
+그러기 위해서, 다음과 같이 `webkit scrollbar`를 통해 스타일링 해주었다.
+
+```javascript
+const SwiperContainer = styled.div`
+  margin: 0px auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0px;
+  z-index: 1;
+  box-sizing: border-box;
+
+  @media only screen and (max-width: 1023px) {
+    padding: 0px 24px;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `
 ```
