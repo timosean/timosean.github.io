@@ -93,7 +93,7 @@ data-styled.g41[id="devlogTemplate__MobileArticleLink-sc-1g0qfq1-9"]{content:"cj
 <br/>
 고민할 필요도 없이 바로 신청했고, 그 후기를 아래에 남기겠다 :-)</p>
 <hr/>
-<h3>[1] 개발 과정에서 고민했던 것들</h3>
+<h3>🛠 개발 과정에서 고민했던 것들</h3>
 <h4>(1) TypeScript × Styled-Components</h4>
 <p><strong>[설치]</strong><br>
 JavaScript × React로 Styled-Components를 설치할 때와 똑같이 설치해주었는데 자꾸 오류가 났다.<br>
@@ -514,5 +514,90 @@ const IconArea = styled.span`
   color: inherit;
   font-size: 22px;
   pointer-events: none;
+`</code>
+        </deckgo-highlight-code>
+<br/>
+<h4>(10) Carousel 구현하기 (feat. translate3d, useEffect)</h4>
+<p>Carousel의 이전/다음 button에서 어떻게 disabled를 조건부로 바로바로 설정하고 해제시켜 줄 수 있을까 생각해보았다.<br>
+일단, useState로 카운터를 생성한 다음, '다음'버튼을 누르면 카운트를 1 올리고, '이전'버튼을 누르면 카운트를 1 내리는식으로 카운터를 생성하였다.<br>
+그리고, 각 button의 disabled 속성은 boolean 값을 가지므로, boolean 값을 반환하는 식을 값으로 주었다.</p>
+<deckgo-highlight-code language="javascript" terminal="carbon" theme="one-dark"  >
+          <code slot="code">  const [tdCount, setTdCount] = useState(0);
+
+  //특가 캐로슬에서 이전버튼 클릭 시
+  const onLeftBtnClick = () =&gt; {
+    setTdCount(tdCount - 1);
+  };
+
+  //특가 캐로슬에서 다음버튼 클릭 시
+  const onRightBtnClick = () =&gt; {
+    setTdCount(tdCount + 1);
+  };
+
+
+ &lt;CarouselButton
+id=&quot;prevBtn&quot;
+onClick={onLeftBtnClick}
+disabled={tdCount === 0}&gt;</code>
+        </deckgo-highlight-code>
+<p>그런데, 문제가 생겼다. 일단 Carousel을 다 만들었는데, useState를 통한 상태 변경이 즉각적으로 이루어지지 않아, Carousel이 즉각적으로 슬라이딩 되지 않았다.</p>
+<deckgo-highlight-code language="javascript" terminal="carbon" theme="one-dark"  >
+          <code slot="code">  const [tdCount, setTdCount] = useState(0);
+
+  //특가 캐로슬에서 이전버튼 클릭 시
+  const onLeftBtnClick = () =&gt; {
+    setTdCount(tdCount - 1);
+    const wrapper = document.querySelector(&quot;.swiper-wrapper&quot;) as HTMLDivElement;
+    wrapper.style.transform = `translate3d(${-300 * tdCount + 600}px, 0, 0)`;
+  };
+
+  //특가 캐로슬에서 다음버튼 클릭 시
+  const onRightBtnClick = () =&gt; {
+    setTdCount(tdCount + 1);
+    const wrapper = document.querySelector(&quot;.swiper-wrapper&quot;) as HTMLDivElement;
+    wrapper.style.transform = `translate3d(${-300 * tdCount}px, 0, 0)`;
+  };</code>
+        </deckgo-highlight-code>
+<p>그래서 다음과 같이, <code>useEffect</code>를 통해 해결하였고, <code>translate3d</code>의 계산식도 다음과 같이 하나로 통일해주었다.</p>
+<deckgo-highlight-code language="javascript" terminal="carbon" theme="one-dark"  >
+          <code slot="code">  const [tdCount, setTdCount] = useState(0);
+
+//특가 캐로슬에서 이전버튼 클릭 시
+const onLeftBtnClick = () =&gt; {
+  setTdCount((num) =&gt; num - 1);
+};
+
+//특가 캐로슬에서 다음버튼 클릭 시
+const onRightBtnClick = () =&gt; {
+  setTdCount((num) =&gt; num + 1);
+};
+
+useEffect(() =&gt; {
+  const wrapper = document.querySelector(&quot;.swiper-wrapper&quot;) as HTMLDivElement;
+  wrapper.style.transform = `translate3d(${-300 * tdCount}px, 0, 0)`;
+}, [tdCount]);</code>
+        </deckgo-highlight-code>
+<br/>
+<h4>(11) overflow는 주고, 스크롤바는 숨기기</h4>
+<p>모바일뷰로 봤을 때, Carousel에서 overflow는 주고, 스크롤바는 숨기고 싶었다.<br>
+그러기 위해서, 다음과 같이 <code>webkit scrollbar</code>를 통해 스타일링 해주었다.</p>
+<deckgo-highlight-code language="javascript" terminal="carbon" theme="one-dark"  >
+          <code slot="code">const SwiperContainer = styled.div`
+  margin: 0px auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0px;
+  z-index: 1;
+  box-sizing: border-box;
+
+  @media only screen and (max-width: 1023px) {
+    padding: 0px 24px;
+    overflow: auto;
+
+    &amp;::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `</code>
         </deckgo-highlight-code></div></div><div class="devlogTemplate__LinkContainer-sc-1g0qfq1-4 hIYCcr"><div style="margin-right:44%" class="devlogTemplate__LinkItem-sc-1g0qfq1-6 gxNqJK"><span class="devlogTemplate__NextorPrev-sc-1g0qfq1-7 kFrIGw">이전 글</span><a class="devlogTemplate__ArticleLink-sc-1g0qfq1-8 lgEJUD" href="/devtest2">dev테스트2</a><a class="devlogTemplate__MobileArticleLink-sc-1g0qfq1-9 cjxpS" href="/devtest2"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"></path></svg> 이전 글</a></div><div class="devlogTemplate__InvisibleItem-sc-1g0qfq1-5 hqZLbQ"></div></div></div><div class="comments" style="width:100vw;position:static;margin-bottom:20px"></div></div></main><div class="footer__FooterArea-sc-r54yyk-0 joZWxO"><div class="footer__ContentArea-sc-r54yyk-1 ksaWOj"><div class="footer__RowItem-sc-r54yyk-2 eOUhtl"><div class="footer__CategoryName-sc-r54yyk-3 ZzGjQ">Developer</div><div class="footer__ItemContent-sc-r54yyk-4 fjZavW"><div style="color:#F2E3B4;font-size:18px;font-family:Apple SD Gothic">이 승 우</div><div style="color:#F2E3B4;font-size:15px;font-family:Roboto">LEE SEUNGWOO</div></div></div><div class="footer__RowItem-sc-r54yyk-2 eOUhtl"><div class="footer__CategoryName-sc-r54yyk-3 ZzGjQ">Link</div><div class="footer__ItemContent-sc-r54yyk-4 fjZavW"><div style="color:#F2E3B4;font-size:15px;font-family:Roboto"><a style="color:#F2E3B4;text-decoration:none" href="/postIndexPage">-See Posts</a></div><div style="color:#F2E3B4;font-size:15px;font-family:Roboto"><div style="link-style:[object Object];cursor:pointer">-top</div></div></div></div><div class="footer__RowItem-sc-r54yyk-2 eOUhtl"><div class="footer__CategoryName-sc-r54yyk-3 ZzGjQ">Study</div><div class="footer__ItemContent-sc-r54yyk-4 fjZavW"><div style="color:#F2E3B4;font-size:15px;font-family:Roboto"><a style="color:#F2E3B4;text-decoration:none" href="/probSolvingPage">-Problem Solving</a></div><div style="color:#F2E3B4;font-size:15px;font-family:Roboto"><a style="color:#F2E3B4;text-decoration:none" href="/devLogPage">-Devlog</a></div><div style="color:#F2E3B4;font-size:15px;font-family:Roboto"><a style="color:#F2E3B4;text-decoration:none" href="/uiuxPage">-UI / UX</a></div><div style="color:#F2E3B4;font-size:15px;font-family:Roboto"><a style="color:#F2E3B4;text-decoration:none" href="/stockStudyPage">-Stock</a></div></div></div><div class="footer__RowItem-sc-r54yyk-2 eOUhtl"><div class="footer__CategoryName-sc-r54yyk-3 ZzGjQ">Contact</div><div class="footer__ItemContent-sc-r54yyk-4 fjZavW"><div style="color:#F2E3B4;font-size:15px;font-family:Roboto;display:flex;align-items:center"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" style="margin-right:5px" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M23,20 L23,6 L12,15 L1,6 L1,20 L23,20 Z M12,12 L22,4 L2,4 L12,12 Z"></path></svg> timosean@naver.com</div><div style="color:#F2E3B4;font-size:15px;font-family:Roboto;display:flex;align-items:center"><svg stroke="currentColor" fill="currentColor" stroke-width="0" role="img" viewBox="0 0 24 24" style="margin-right:5px" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><title></title><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"></path></svg> seanneony@gmail.com</div><div style="color:#F2E3B4;font-size:15px;font-family:Roboto;display:flex;align-items:center"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" style="margin-right:5px" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"></path></svg> februarycloud_</div><div style="color:#F2E3B4;font-size:15px;font-family:Roboto;display:flex;align-items:center"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" style="margin-right:5px" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"></path></svg> dev.timosean</div></div></div></div></div><div class="footer__CopyrightArea-sc-r54yyk-5 eZPYPX"><span style="line-height:15px">Copyright © Seungwoo Lee 2021</span></div></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/class101-challenge";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-2b3ccedfbeecd6f363b4.js"],"app":["/app-de60561798223bb0ebfe.js"],"component---src-pages-404-js":["/component---src-pages-404-js-50737b321111ee2fe238.js"],"component---src-pages-dev-log-page-js":["/component---src-pages-dev-log-page-js-ee8917b321dd2ca9a775.js"],"component---src-pages-index-js":["/component---src-pages-index-js-3ff9f57a5b5d28104b4f.js"],"component---src-pages-post-index-page-js":["/component---src-pages-post-index-page-js-f855d13d746fba68bc93.js"],"component---src-pages-prob-solving-page-js":["/component---src-pages-prob-solving-page-js-66fdc2136ff0a7d54bcb.js"],"component---src-pages-stock-study-page-js":["/component---src-pages-stock-study-page-js-43767ace4a773083b884.js"],"component---src-pages-uiux-page-js":["/component---src-pages-uiux-page-js-4b258338dba57f58ca08.js"],"component---src-pages-using-typescript-tsx":["/component---src-pages-using-typescript-tsx-71e63bb3f288be3f6f6a.js"],"component---src-templates-devlog-template-js":["/component---src-templates-devlog-template-js-151ff688b4db35766e7e.js"],"component---src-templates-post-template-js":["/component---src-templates-post-template-js-0dc951e363bcf9a8dbb5.js"],"component---src-templates-prob-solving-template-js":["/component---src-templates-prob-solving-template-js-fcda4bf66b6c3bf9fcc0.js"],"component---src-templates-stock-template-js":["/component---src-templates-stock-template-js-fe0e01ade9d1d8b5472d.js"],"component---src-templates-uiux-template-js":["/component---src-templates-uiux-template-js-620d795822622fd7847e.js"]};/*]]>*/</script><script src="/polyfill-2b3ccedfbeecd6f363b4.js" nomodule=""></script><script src="/component---src-templates-devlog-template-js-151ff688b4db35766e7e.js" async=""></script><script src="/519c26e410afcfb15b26c7d5503cdbd78fef5f62-30d028a9c1ee78fb0c72.js" async=""></script><script src="/commons-d47c18cc89ea7fa36e1f.js" async=""></script><script src="/a490077e-e76e3463a7c36ca6b2b3.js" async=""></script><script src="/b3ead0f8-c7cf73d068f80feb4fa2.js" async=""></script><script src="/aa642b0a-9d5ed284f3fdbe7a28d2.js" async=""></script><script src="/e4d59a83-739f83f239ee2b0c5017.js" async=""></script><script src="/fa5f8105-5d5174fb8ed07e999511.js" async=""></script><script src="/fd8de3a3-e9db41d36ea2b02ab66b.js" async=""></script><script src="/app-de60561798223bb0ebfe.js" async=""></script><script src="/framework-9fef3f83a141b67ba7fa.js" async=""></script><script src="/webpack-runtime-d41a8692bfc05ae48db6.js" async=""></script></body></html>
