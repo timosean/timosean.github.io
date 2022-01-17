@@ -470,9 +470,20 @@ const addClassName = (e: React.MouseEvent<HTMLElement>): void => {
 
 <br/>
 
-#### (9) 포인터 이벤트의 대상이 되고 싶지 않다면? pointer-events: none;
+#### (9) offsetLeft로 왼쪽에서 떨어진 거리 구하기
 
-위 (8)번의 문제를 해결하고 나니 문제가 하나 더 발생했다. 위 코드에서처럼 가장 바깥쪽 span(즉, StyledButton 컴포넌트)에 onClick 이벤트를
+<p align="center"> 
+<img alt="bottomnav_img" src="https://github.com/timosean/timosean.github.io/blob/master/postimages/prob9.png?raw=true">
+</p>
+
+위에 보이는 그림처럼 전체 카테고리에 마우스를 올리면 밑에 드롭다운 리스트가 나타나는데, 자세히 살펴보니 이 드롭다운 리스트의 `margin-left`값이 뷰포트 너비(Viewport Width)에 따라
+달라졌다.
+
+<br/>
+
+#### (10) 포인터 이벤트의 대상이 되고 싶지 않다면? pointer-events: none;
+
+문제가 하나 더 발생했다. 위 코드에서처럼 가장 바깥쪽 span(즉, StyledButton 컴포넌트)에 onClick 이벤트를
 준 것을 볼 수 있다. 이렇게 해당 영역을 클릭하면 StyledButton의 color 속성이 바뀌고 그 안의 아이콘과 글자의 color는 inherit이므로 저절로 바뀌도록
 해놓은 것이다.  
 하지만, 버튼 안의 아이콘과 텍스트를 클릭하면 색이 변하지 않고, StyledButton의 아이콘과 텍스트를 제외한 나머지 영역을 클릭해야 아이콘과 텍스트의 색이
