@@ -361,11 +361,12 @@ ul {
   margin-bottom: 1.45rem;
   list-style-position: outside;
   list-style-image: none;
+  font-size: 16px;
 }
 ol {
   margin-left: 1.45rem;
   margin-right: 0;
-  margin-top: 0;
+  margin-top: 0.45rem;
   padding-bottom: 0;
   padding-left: 0;
   padding-right: 0;
@@ -373,6 +374,7 @@ ol {
   margin-bottom: 1.45rem;
   list-style-position: outside;
   list-style-image: none;
+  font-size: 16px;
 }
 dl {
   margin-left: 0;

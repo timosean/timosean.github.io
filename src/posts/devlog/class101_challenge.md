@@ -260,10 +260,8 @@ const [categoryName, setCategoryName] = useState("");
 
 #### (5) hover도 좋지만 MouseEvent를 적극 활용하자
 
-이 Todylog를 개발하면서 마우스 관련 이벤트는 css `:hover`만으로 해결되는 경우가 다였어서 `:hover`밖에 생각이 안났었는데  
-마우스를 올리거나 뗐을 때 등등 마우스 관련 수많은 event들이 있다는 것을 생각해냈다😂 (너무 당연한건데... 더 열심히 해야겠음)  
-`onMouseEnter`와 `onMouseLeave` 이벤트가 일어날 때 isMenuOpened라는 state의 상태를 바꿔주는 식으로 구현했다.  
-아래는 예시코드이다.
+이 Todylog를 개발하면서 마우스 관련 이벤트는 css `:hover`만으로 해결되는 경우가 다였어서 `:hover`밖에 생각이 안났었는데 마우스를 올리거나 뗐을 때 등등 마우스 관련 수많은 event들이 있다는 것을 생각해냈다😂 (너무 당연한건데... 더 열심히 해야겠음)  
+`onMouseEnter`와 `onMouseLeave` 이벤트가 일어날 때 isMenuOpened라는 state의 상태를 바꿔주는 식으로 구현했다. 아래는 예시코드이다.
 
 ```javascript
 const [isMenuOpened, setMenuOpened] = useState(false);
@@ -313,7 +311,7 @@ MainDropDownList에서 마우스가 떠날 때 서브메뉴 리스트도 없어�
 
 그래서 생각한 로직은, 일단 각 카테고리의 아이콘에 id를 해당 카테고리 이름으로 주고, 세부메뉴 리스트에 `onMouseEnter` 시에 `document.getElementById`로 해당
 아이콘을 선택한 다음, `style.visibility="visible"`을 주는 것이다.  
-(물론, 아이콘의 스타일을 정의할 때 `visibility`는 `hidden`으로 주었다.)  
+(물론, 처음에 아이콘의 스타일을 정의할 때 `visibility`는 `hidden`으로 주었다.)  
 그리고, 당연히 세부메뉴 리스트에 `onMouseLeave` 시에는 다시 `style.visibility="hidden"`을 주어야 다른 카테고리를 선택했을 때에 그 카테고리의 화살표만
 남아있게 된다.
 
@@ -357,7 +355,7 @@ const makeIconDisappear = (name: string) => {
 
 <br/>
 
-#### (8) class 활용하기, TypeScript에서 e.target 사용하기
+#### (8) class 활용하기 / TypeScript에서 event.target 사용하기 (feat. 타입캐스팅)
 
 아래의 그림처럼, Bottom Navigation에서 클릭한(선택한) 부분만 색상이 변하고 나머지는 다 원래의 검정색으로 복구시키는 기능을
 구현해야했다. 무척이나 구현해보고 싶었지만 아이디어도 떠오르지 않았고 시도해 본 적도 없는 기능이어서 고민을 많이했다.
@@ -535,6 +533,8 @@ onClick={onLeftBtnClick}
 disabled={tdCount === 0}>
 ```
 
+<br/>
+
 그런데, 문제가 생겼다. 일단 Carousel을 다 만들었는데, useState를 통한 상태 변경이 즉각적으로 이루어지지 않아, Carousel이 즉각적으로 슬라이딩 되지 않았다.
 
 ```javascript
@@ -555,10 +555,12 @@ disabled={tdCount === 0}>
   };
 ```
 
+<br/>
+
 그래서 다음과 같이, `useEffect`를 통해 해결하였고, `translate3d`의 계산식도 다음과 같이 하나로 통일해주었다.
 
 ```javascript
-  const [tdCount, setTdCount] = useState(0);
+const [tdCount, setTdCount] = useState(0);
 
 //특가 캐로슬에서 이전버튼 클릭 시
 const onLeftBtnClick = () => {
@@ -581,7 +583,7 @@ useEffect(() => {
 #### (11) overflow는 주고, 스크롤바는 숨기기
 
 모바일뷰로 봤을 때, Carousel에서 overflow는 주고, 스크롤바는 숨기고 싶었다.  
-그러기 위해서, 다음과 같이 `webkit scrollbar`를 통해 스타일링 해주었다.
+그러기 위해서, 다음과 같이 `::-webkit-scrollbar`를 통해 스타일링 해주었다.
 
 ```javascript
 const SwiperContainer = styled.div`
@@ -603,3 +605,93 @@ const SwiperContainer = styled.div`
   }
 `
 ```
+
+<br/>
+<hr/>
+
+### 📚 활용한 라이브러리 / 프레임워크, 그 이유?
+
+#### (1) Styled-Components
+
+<br/>
+<br/>
+
+1. **컴포넌트 단위 스타일링**
+
+   - Styled-Components는 JavaScript의 템플릿 리터럴과 CSS의 기능을 사용하여 구성 요소에 반응하는 스타일을 제공하는 `CSS-in-JS` 스타일링을 위한 프레임워크이다.
+     따라서, Styled-Components를 사용하여 **JavaScript 코드 내에서 일반 CSS로 스타일링한 리액트 컴포넌트를 생성**할 수 있다!
+   - 또, Styled-Components로 생성된 컴포넌트를 빌드하면 **임의의 클래스명**이 정해지고 그 안에 스타일이 적용되어, className이 중복되거나, selector의 우선
+     순위 적용으로 인한 스타일링에서의 혼선을 방지할 수 있다!
+     <br/>
+     <br/>
+
+1. **조건부 스타일링(Props 전달받기 가능)**
+
+   - Styled-Components는 컴포넌트의 **Props**를 전달받아 사용하는 것이 가능하다.
+   - TypeScript에서 props 전달하기 / 전달받기는 [🛠 개발 과정에서 고민했던 것들 (1)번 내용]을 참고하길 바란다.
+     <br/>
+     <br/>
+
+1. **확장 스타일링(코드의 양 대폭 감소)**
+
+   - Styled-Components는 **기존의 컴포넌트 스타일 + 새로운 스타일을 추가**하여 새로운 컴포넌트를 생성할 수 있다. 이렇게 확장 스타일링을 사용하면
+     중복되는 코드를 줄이고, 유지보수가 훨씬 쉬워진다. 다음과 같이 쉽게 `styled(베이스 컴포넌트명)`으로 스타일링 가능하다.
+
+     ```javascript
+     const Container = styled.div`
+       width: 100px;
+       height: 100px;
+       border: 1px solid black;
+     `
+
+     const GreenContainer = styled(Container)`
+       background-color: green;
+     `
+     ```
+
+     <br/>
+
+1. **중첩 스코프, 미디어 쿼리**
+
+   - Styled-Components는 **중첩 스코프 규칙**을 사용할 수 있다. 덕분에, 모든 컴포넌트를 styled-components로 생성하지 않아도,
+     **하위 컴포넌트에게만 적용하고 싶은 스타일**을 스코프 형태로 구현할 수 있다.
+   - `&`로 자기 자신을 선택할 수 있어서 해당 컴포넌트 중에 id나 className에 따라 다른 스타일을 적용시켜줄 수도 있고, hover, media query도 적용 가능하다.
+
+     ```javascript
+     const Container = styled.div`
+       width: 100px;
+       height: 100px;
+       border: 1px solid black;
+
+       &.smooth-border {
+         border-radius: 3px;
+       }
+
+       &:hover {
+         background-color: pink;
+       }
+
+       @media only screen and (max-width: 1023px) {
+         width: 50px;
+         height: 50px;
+       }
+     `
+
+     <Container className="smooth-border"> ... </Container>
+     ```
+
+<br/>
+
+#### (2) React-icons
+
+<br/>
+<br/>
+
+1. **스타일링이 편하고, 매우 다양한 아이콘들을 제공한다**
+
+   - 웬만하면 CLASS101 디자인시스템에 있는 아이콘을 쓰려고 했으나, 클론코딩 하기에 유사한 아이콘도 별로 없었을 뿐더러 사용하기(스타일링하기) 쉽지 않았다. (다시 디자인시스템 Icon 목록들 보니까 내가 못 찾고
+     그냥 넘어갔던 것들이 있긴 있었네..)
+   - 그리고 아이콘의 구체적인 `width`와 `height`를 인라인 스타일링으로 줄 수 있어서 좋았다. 디자인시스템 Icon은 그냥 props로 `size={24}`와 같이 넘기는 옵션 밖에 없는데 `width`랑 `height`가 아마 원하는대로
+     조절이 안 됐었던 것 같다.
+     <br/>
+     <br/>
