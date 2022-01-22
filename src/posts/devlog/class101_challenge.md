@@ -132,31 +132,7 @@ const CategoryMenus = [
         name: "캐릭터 드로잉",
         to: "https://class101.net/search?category=613070fa5b76158cac88344b",
       },
-      {
-        id: 14,
-        name: "인물 드로잉",
-        to: "https://class101.net/search?category=613070fa5b76158cac88344c",
-      },
-      {
-        id: 15,
-        name: "굿즈 · 이모티콘",
-        to: "https://class101.net/search?category=613070fa5b76158cac88344d",
-      },
-      {
-        id: 16,
-        name: "웹툰",
-        to: "https://class101.net/search?category=613070fa5b76158cac88344e",
-      },
-      {
-        id: 17,
-        name: "캘리그라피",
-        to: "https://class101.net/search?category=613070fa5b76158cac88344f",
-      },
-      {
-        id: 18,
-        name: "더 새로운 디지털 드로잉",
-        to: "https://class101.net/search?category=613070fa5b76158cac883450",
-      },
+      ...more objects...
     ],
   },
   {
@@ -179,41 +155,7 @@ const CategoryMenus = [
         name: "색연필",
         to: "https://class101.net/search?category=604f1c9756c3676f1ed00307",
       },
-      {
-        id: 23,
-        name: "수채화",
-        to: "https://class101.net/search?category=604f1c9756c3676f1ed00308",
-      },
-      {
-        id: 24,
-        name: "오일파스텔",
-        to: "https://class101.net/search?category=604f1c9756c3676f1ed00309",
-      },
-      {
-        id: 25,
-        name: "과슈 · 아크릴화",
-        to: "https://class101.net/search?category=604f1c9756c3676f1ed0030a",
-      },
-      {
-        id: 26,
-        name: "유화",
-        to: "https://class101.net/search?category=604f1c9756c3676f1ed0030b",
-      },
-      {
-        id: 27,
-        name: "동양화",
-        to: "https://class101.net/search?category=604f1c9756c3676f1ed0030c",
-      },
-      {
-        id: 28,
-        name: "캘리그라피",
-        to: "https://class101.net/search?category=604f1c9756c3676f1ed00312",
-      },
-      {
-        id: 29,
-        name: "더 새로운 드로잉",
-        to: "https://class101.net/search?category=604f1c9756c3676f1ed0030d",
-      },
+      ...more objects...
     ],
   },
 
@@ -472,12 +414,24 @@ const addClassName = (e: React.MouseEvent<HTMLElement>): void => {
 
 #### (9) offsetLeft로 왼쪽에서 떨어진 거리 구하기
 
+<br/>
+
 <p align="center"> 
 <img alt="bottomnav_img" src="https://github.com/timosean/timosean.github.io/blob/master/postimages/prob9.png?raw=true">
 </p>
 
 위에 보이는 그림처럼 전체 카테고리에 마우스를 올리면 밑에 드롭다운 리스트가 나타나는데, 자세히 살펴보니 이 드롭다운 리스트의 `margin-left`값이 뷰포트 너비(Viewport Width)에 따라
-달라졌다.
+달라졌다. 구체적으로는, '내비게이션 바'의 `margin-left` 값보다 `20px` 적다는 것을 알아냈다. (내비게이션 바의 `margin-left`는 `auto`였으므로 고정적이지 않았음)  
+따라서, 다음과 같이 내비게이션 바의 `margin-left` 값을 구하고 거기서 `20px` 뺀 만큼을 드롭다운 리스트의 `margin-left` 값으로 주었다.
+
+```
+const navbar = document.getElementById("navbar")
+const navLeft = navbar?.offsetLeft
+
+<CategoryDropdownWrapper style={{ marginLeft: `${navLeft - 20}px` }}>
+          ...
+</CategoryDropdownWrapper>
+```
 
 <br/>
 
@@ -518,7 +472,7 @@ const IconArea = styled.span`
 
 <br/>
 
-#### (10) Carousel 구현하기 (feat. translate3d, useEffect)
+#### (11) Carousel 구현하기 (feat. translate3d, useEffect)
 
 Carousel의 이전/다음 button에서 어떻게 disabled를 조건부로 바로바로 설정하고 해제시켜 줄 수 있을까 생각해보았다.  
 일단, useState로 카운터를 생성한 다음, '다음'버튼을 누르면 카운트를 1 올리고, '이전'버튼을 누르면 카운트를 1 내리는식으로 카운터를 생성하였다.  
@@ -591,7 +545,7 @@ useEffect(() => {
 
 <br/>
 
-#### (11) overflow는 주고, 스크롤바는 숨기기
+#### (12) overflow는 주고, 스크롤바는 숨기기
 
 모바일뷰로 봤을 때, Carousel에서 overflow는 주고, 스크롤바는 숨기고 싶었다.  
 그러기 위해서, 다음과 같이 `::-webkit-scrollbar`를 통해 스타일링 해주었다.
