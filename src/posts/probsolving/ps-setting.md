@@ -23,7 +23,7 @@ path: "/vscode-setting"
 아래 그림의 재생모양 버튼을 누르면 바로 실행시켜 결과를 볼 수 있다.
 
 <p align="center">
-<img alt="1월 가입혜택 이미지" src="https://github.com/timosean/timosean.github.io/blob/master/postimages/vscode1.png?raw=true">
+<img alt="code_runner_img" src="https://github.com/timosean/timosean.github.io/blob/master/postimages/vscode1.png?raw=true">
 </p>
 
 <br />
@@ -67,3 +67,10 @@ Code Snippet을 만들기 위해서, **[VS Code 오른쪽 하단의 톱니바퀴
 <br />
 
 이제, cpp 파일에서 `algorithm-init`이라는 단축어를 통해서 아래 이미지와 같이 코드 조각을 생성해 낼 수 있다.
+
+<p align="center">
+<img alt="codesnippet_img1" src="https://github.com/timosean/timosean.github.io/blob/master/postimages/vscode2.png?raw=true">
+</p>
+<p align="center">
+<img alt="codesnippet_img2" src="https://github.com/timosean/timosean.github.io/blob/master/postimages/vscode3.png?raw=true">
+</p>
