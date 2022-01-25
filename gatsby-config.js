@@ -34,6 +34,12 @@ module.exports = {
               theme: `one-dark`,
             },
           },
+          {
+            resolve: `gatsby-remark-katex`,
+            options: {
+              strict: `ignore`
+            }
+          }
         ],
       },
     },

@@ -1,4 +1,5 @@
 import React from "react"
+import 'katex/dist/katex.min.css'
 import Layout from "../components/layout"
 import Comment from "../components/comment"
 import styled from "styled-components"
