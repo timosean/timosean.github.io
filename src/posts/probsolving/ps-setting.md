@@ -1,6 +1,6 @@
 ---
 title: PS를 위한 VS Code 세팅
-date: "January 24, 2022"
+date: "2022. 01. 24"
 path: "/vscode-setting"
 ---
 

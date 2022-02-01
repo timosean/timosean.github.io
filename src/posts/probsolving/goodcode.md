@@ -1,6 +1,6 @@
 ---
 title: 좋은 코드를 짜기 위한 노력
-date: "January 20, 2022"
+date: "2022. 01. 20"
 path: "/good-code"
 ---
 
